@@ -1,13 +1,14 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Rutina } from './rutina.entity';
+import { Progreso } from './progreso.entity';
 
-@Entity('usuarios')
+@Entity('usuario')
 export class Usuario {
   @PrimaryGeneratedColumn()
   id!: number; 
 
   @Column({ type: 'varchar', length: 100 })
-  name!: string;
+  nombre!: string;
 
   @Column({ type: 'varchar', length: 100, unique: true })
   email!: string;
@@ -20,4 +21,7 @@ export class Usuario {
 
   @OneToMany(() => Rutina, (rutina) => rutina.entrenador)
   rutina!: Rutina[];
+
+  @OneToMany(() => Progreso, (progreso) => progreso.usuario)
+  progreso!: Progreso[];
 }

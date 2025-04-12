@@ -3,7 +3,7 @@ import { getAllRoutines } from '../controllers/rutina.controller';
 
 const rutinaRouter = Router();
 
-// Definir la ruta para obtener todos los usuarios
-rutinaRouter.get('/rutinas', getAllRoutines);
+// Definir la ruta para obtener todas las rutinas
+rutinaRouter.get('/', getAllRoutines);
 
 export default rutinaRouter;

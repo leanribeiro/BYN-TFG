@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 import { Usuario } from './usuario.entity';
+import { RutinaVersionada } from './rutina-versionada.entity';
 
 @Entity('rutina')
 export class Rutina {
@@ -9,7 +10,7 @@ export class Rutina {
   @Column({ type: 'varchar', length: 100 })
   titulo!: string;
 
-  @Column({ type: 'varchar', length: 100, unique: true })
+  @Column({ type: 'varchar', length: 100})
   descripcion!: string;
 
   @ManyToOne(() => Usuario, (usuario) => usuario.rutina)
@@ -18,4 +19,7 @@ export class Rutina {
 
   @Column({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
   fecha_creacion!: Date;
+
+  @OneToMany(() => RutinaVersionada, (versionada) => versionada.rutina)
+  versiones!: RutinaVersionada[];
 }

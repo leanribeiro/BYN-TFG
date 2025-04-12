@@ -1,8 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import dataSource from './data-source';
-import userRoutes from './routes/usuario.routes';
-import rutinaRouter from './routes/rutina.routes';
 import routes from './routes/index';
 dotenv.config();
 
