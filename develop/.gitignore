@@ -2,19 +2,19 @@
 node_modules/
 
 #backend-node-modules
-Byn-backend/byn-backend/node_modules/
+./Byn-backend/byn-backend/node_modules/
 #backend package.json
-Byn-backend/byn-backend/package.json
+./Byn-backend/byn-backend/package.json
 #backend package.json.lock
-Byn-backend/byn-backend/package.json.lock
+./Byn-backend/byn-backend/package.json.lock
 
 
 # Frontend node modules
-Byn-frontend/byn-frontend/node_modules/
+./Byn-frontend/byn-frontend/node_modules/
 #frontend package.json
-Byn-frontend/byn-frontend/package.json
+./Byn-frontend/byn-frontend/package.json
 #frontend package.json.lock
-Byn-frontend/byn-frontend/package.json.lock
+./Byn-frontend/byn-frontend/package.json.lock
 
 #package.json
 package.json
