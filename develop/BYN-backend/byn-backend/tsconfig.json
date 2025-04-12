@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "es2016",                     /* El objetivo es ES6 */
+    "module": "commonjs",                    /* Usamos CommonJS para Node.js */
+    "esModuleInterop": true,                 /* Permite la interoperabilidad de módulos ES */
+    "strict": true,                          /* Activar las verificaciones estrictas */
+    "skipLibCheck": true,                    /* Omite la comprobación de tipos en las bibliotecas */
+    "forceConsistentCasingInFileNames": true,/* Asegura que las importaciones sean consistentes en cuanto a mayúsculas/minúsculas */
+    "noEmit": true,                          /* No emitir archivos JS, ya que usamos ts-node */
+    "resolveJsonModule": true,               /* Permite importar archivos JSON */
+    "moduleResolution": "node",              /* Resolución de módulos estilo Node.js */
+    "outDir": "./dist",                      /* Output de archivos compilados (si no se usa `noEmit`) */
+    "rootDir": "./src",                    /* El directorio raíz de tus archivos TS */
+    "experimentalDecorators": true,  // Habilitar decoradores
+    "emitDecoratorMetadata": true,   // Emitir metadata de los decoradores
+  },
+  "include": [
+    "src/**/*.ts"                            /* Incluir todos los archivos TS en src */
+  ]
+}
