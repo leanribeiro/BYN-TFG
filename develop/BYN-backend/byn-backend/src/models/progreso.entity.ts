@@ -22,7 +22,7 @@ export class Progreso {
   @JoinColumn({ name: 'ejercicio_id' }) 
   ejercicio!: Ejercicio;
  
-  @ManyToOne(() => Usuario, (usuario) => usuario.rutina)
+  @ManyToOne(() => Usuario, (usuario) => usuario.progreso)
   @JoinColumn({ name: 'usuario_id' }) 
   usuario!: Usuario;
 }
