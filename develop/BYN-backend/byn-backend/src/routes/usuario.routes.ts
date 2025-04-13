@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import { getAllUsers } from '../controllers/usuario.controller';
+import { createUser, getAllUsers } from '../controllers/usuario.controller';
 
 const usuarioRouter = Router();
 
 // Definir la ruta para obtener todos los usuarios
 usuarioRouter.get('/', getAllUsers);
-
+usuarioRouter.post('/', createUser);
 export default usuarioRouter;
