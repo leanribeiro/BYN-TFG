@@ -1,0 +1,20 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  height: 80px;
+  align-items: center;
+  /* background-color: rgb(78, 77, 77); */
+}
+
+.container > * {
+  flex: 1;
+  text-align: center;
+}
+
+
+.buttonContainer{
+  display: flex;
+  justify-content: center;
+  gap:10px
+}
+

@@ -1,0 +1,21 @@
+body {
+    font-family: 'Winky Rough', cursive;
+}
+
+a {
+  font-family: 'Winky Rough', cursive;
+  text-decoration: none;
+  color: white;
+}
+
+/* a:visited, */
+a:active,
+a:hover {
+  color: #d3b97e;
+  text-decoration: none;
+}
+
+button a:hover {
+  color: white;
+  text-decoration: none;
+}
