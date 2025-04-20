@@ -1,18 +1,11 @@
-import "./App.css";
-import { Route, Routes } from "react-router-dom";
-import { Home } from "./scenes/Home";
+import React from "react";
+import { routes } from "./routes/routes";
+import { useRoutes } from "react-router-dom";
 
-function App() {
+const AppRoutes = () => useRoutes(routes);
+
+export const App: React.FC = () => {
   return (
-    <>
-      <div>
-        <Routes>
-          <Route path="/" element={<Home />} />{" "}
-          {/* Ruta para la página principal */}
-        </Routes>
-      </div>
-    </>
+      <AppRoutes />
   );
-}
-
-export default App;
+};

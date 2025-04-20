@@ -1,0 +1,51 @@
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #252425;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-family: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  gap: 10px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.button:hover {
+  background-color: #3a3a3a; /* color un poco más claro */
+  transform: scale(1.02);   /* efecto sutil de crecimiento */
+}
+
+.withIcon {
+  gap: 10px;
+}
+
+.icon {
+  width: 40px;
+  height: 40px;
+  transition: transform 0.2s ease;
+}
+
+.button:hover .icon {
+  transform: translateX(-4px);
+}
+
+.small {
+  width: 100px;
+  height: 36px;
+  font-size: 12px;
+}
+
+.medium {
+  width: 140px;
+  height: 44px;
+  font-size: 14px;
+}
+
+.large {
+  width: 180px;
+  height: 52px;
+  font-size: 16px;
+}

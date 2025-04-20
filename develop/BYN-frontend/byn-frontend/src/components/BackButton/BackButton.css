@@ -1,0 +1,30 @@
+
+   .back-button {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 15px;
+    background-color: transparent;
+    color: white;
+    border: none;             
+    outline: none;              
+    border-radius: 8px;
+    box-shadow: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .back-button:hover {
+    background-color: #252425;
+  }
+  
+  .back-button-icon {
+    width: 30px;
+    height: 30px;
+    transition: transform 0.2s ease;
+  }
+  
+  .back-button:hover .back-button-icon {
+    transform: translateX(-10px);
+  }
+  
