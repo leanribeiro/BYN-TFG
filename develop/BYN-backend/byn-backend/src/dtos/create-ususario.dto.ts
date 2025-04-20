@@ -1,5 +1,5 @@
 import { IsEmail, IsEnum, IsNotEmpty, MinLength } from 'class-validator';
-import { Role } from '../models/usuario.entity'; // Enum de roles si lo usás
+import { Role } from '../models/usuario.entity'; 
 
 export class CreateUsuarioDTO {
   @IsNotEmpty({ message: 'El nombre es obligatorio' })

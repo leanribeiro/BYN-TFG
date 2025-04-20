@@ -26,9 +26,10 @@ export const createUser = async (req: Request, res: Response): Promise<void> => 
   const usuarioRepository = dataSource.getRepository(Usuario);
   const dto = plainToInstance(CreateUsuarioDTO, req.body);
   const errors = await validate(dto);
-
   if (errors.length > 0) {
+    console.error('Errores de validación:', errors);
     res.status(400).json({ errores: errors.map(e => e.constraints) });
+    return;
   }
 
   try {

@@ -10,8 +10,8 @@ export const login = async (req: Request, res: Response): Promise<void> => {
   try {
     const usuarioRepository = dataSource.getRepository(Usuario);
     const usuario = await usuarioRepository.findOne({ where: { email } });
-
     if (!usuario) {
+    
       res.status(404).json({ error: 'Usuario no encontrado' });
       return;  // Asegúrate de hacer el return para que no se sigan ejecutando más líneas
     }
