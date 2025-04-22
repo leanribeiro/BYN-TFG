@@ -7,8 +7,13 @@ import Form from "../../components/Form";
 import { BackButton } from "../../components/BackButton";
 import { loginUser } from "../../services/api";
 import useAuthStore from "../../store/authStore";
+import { useNavigate } from "react-router-dom";
 
 export const Login: React.FC = () => {
+
+  const navigate = useNavigate();
+
+
   const [formData, setFormData] = React.useState({
  
     password: "",
@@ -38,8 +43,10 @@ export const Login: React.FC = () => {
       });
 
       console.log("Usuario logeado:", response);
+
+      navigate("/dashboard/entrenador");  
       if(response.token) {
-        login(response.token, response.user); 
+        login(response.token,response.user); 
         localStorage.setItem("token", response.token); 
       }
 

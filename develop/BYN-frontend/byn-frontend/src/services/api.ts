@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { jwtDecode } from "jwt-decode";
+
 
 const api = axios.create({
   baseURL:  'http://localhost:4000/api',
@@ -6,7 +8,14 @@ const api = axios.create({
     'Content-Type': 'application/json',
   },
 });
-
+interface DecodedToken {
+    id: number;
+    name: string;
+    email: string;
+    role: string;
+    iat: number;
+    exp: number;
+  }
 export const createUser = async (userData: {
   nombre: string;
   email: string;
@@ -29,7 +38,9 @@ export const loginUser = async (credentials: {
     try{
         const response = await api.post('/auth/login', credentials);
         console.log('Respuesta del login:', response.data);
-        return response.data; 
+        const user = jwtDecode<DecodedToken>(response.data.token);
+        console.log('Usuario decodificado:', user);
+        return {token: response.data.token, user: {id: user.id, email: user.email, role: user.role}}; 
     } catch (error: any) {
         throw new Error(error.response?.data?.error || 'Error al iniciar sesión');
     }

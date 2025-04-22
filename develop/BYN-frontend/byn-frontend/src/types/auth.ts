@@ -1,14 +1,14 @@
 export type User = {
     id: number;
-    name: string;
+    name?: string;
     email: string;
-    roles: string[];
+    role: string;
   };
   
   export type AuthState = {
     token: string | null;
     user: User | null;
-    roles: string[];
+    roles: string;
     isLoading: boolean;
     error: string | null;
   
