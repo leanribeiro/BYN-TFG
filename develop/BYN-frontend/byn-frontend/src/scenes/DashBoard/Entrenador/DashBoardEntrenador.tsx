@@ -1,88 +1,70 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import DashboardLayout from "@/components/DashboardLayout";
-import "./Clients.css"; // Importación de los estilos
-import useAuthStore from "../../../store/authStore";
+import { useEffect, useState } from "react";
+import styles from "./DashBoardEntrenador.module.css";
+import { User } from "../../../types";
+import { getClientsByEntrenador } from "../../../services/api";
+import { ClientCard } from "../../../components/CardClient/CardClient";
 
-export const DashBoardEntrenador = () => {
-  const { user } = useAuthStore();
+interface Props {
+  user: User | null;
+}
+export const DashBoardEntrenador = (props: Props) => {
+  const { user } = props;
+  const [clientes, setClientes] = useState([]);
+
+  useEffect(() => {
+    getClientes();
+  }, [user?.id]);
+
+  const getClientes = async () => {
+    try {
+      const data = await getClientsByEntrenador(user?.id);
+      setClientes(data);
+    } catch (err) {
+      console.error("Error trayendo los clientes:", err);
+    }
+  };
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // const query = e.target.value.toLowerCase();
-    // setSearchQuery(query);
-
-    // // Aquí deberías filtrar los clientes desde tu backend o estado real
-    // setFilteredClients([]); // Reemplazar con lógica real
+    // lógica de búsqueda futura
   };
 
   return (
-    <DashboardLayout>
-      <div className="clients-container">
-        <div className="clients-header">
-          <div>
-            <h1 className="title">Mis Clientes</h1>
-            <p className="subtitle">Administra y haz seguimiento a tus clientes.</p>
-          </div>
-          <button className="btn primary">
-            ➕ Nuevo Cliente
-          </button>
+    <div className={styles.container}>
+      <div className={styles.header}>
+        <div>
+          <h1 className={styles.title}>Mis Clientes</h1>
+          <p className={styles.subtitle}>
+            Administra y haz seguimiento a tus clientes.
+          </p>
         </div>
-
-        <div className="search-box">
-          <span className="search-icon">🔍</span>
-          <input
-            placeholder="Buscar cliente por nombre o email..."
-            className="search-input"
-            // value={searchQuery}
-            onChange={handleSearch}
-          />
-        </div>
-
-        <div className="tabs">
-          <div className="tabs-list">
-            <button className="tab active">Activos</button>
-            <button className="tab">Inactivos</button>
-            <button className="tab">Todos</button>
-          </div>
-
-          <div className="tabs-content">
-            {filteredClients.length === 0 ? (
-              <div className="no-results">
-                No se encontraron clientes que coincidan con tu búsqueda.
-              </div>
-            ) : (
-              <div className="client-grid">
-                {filteredClients.map((client) => (
-                  <div className="client-card" key={client.id}>
-                    <div className="client-header">
-                      <img src={client.avatar} alt={client.name} className="avatar" />
-                      <div>
-                        <h3>{client.name}</h3>
-                        <p className="email">{client.email}</p>
-                      </div>
-                    </div>
-                    <div className="client-info">
-                      <p><strong>Objetivo:</strong> {client.goal}</p>
-                      <p><strong>Se unió:</strong> {client.joinDate}</p>
-                      <p><strong>Última actividad:</strong> {client.lastActive}</p>
-                      <p><strong>Progreso:</strong> {client.progress}%</p>
-                    </div>
-                    <div className="client-actions">
-                      <Link to={`/trainer/progress/${client.id}`} className="btn outline">
-                        👁️ Ver progreso
-                      </Link>
-                      <Link to="/trainer/routines" className="btn">
-                        📈 Rutinas
-                      </Link>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
+        <button className={styles.addButton}>➕ Nuevo Cliente</button>
       </div>
-    </DashboardLayout>
+
+      <div className={styles.searchBox}>
+        <span className={styles.searchIcon}>🔍</span>
+        <input
+          placeholder="Buscar cliente por nombre o email..."
+          className={styles.searchInput}
+          onChange={handleSearch}
+        />
+      </div>
+
+      <div className={styles.tabs}>
+        <button className={`${styles.tab} ${styles.active}`}>Activos</button>
+        <button className={styles.tab}>Inactivos</button>
+        <button className={styles.tab}>Todos</button>
+      </div>
+      <div className={styles.clientList}>
+      {clientes.map((cliente: any) => (
+        <ClientCard 
+          key={cliente.id} 
+          id={cliente.id} 
+          nombre={cliente.nombre} 
+          email={cliente.email} 
+        />
+      ))}
+    </div>
+
+    </div>
   );
 };
-

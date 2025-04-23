@@ -10,21 +10,17 @@ import useAuthStore from "../../store/authStore";
 import { useNavigate } from "react-router-dom";
 
 export const Login: React.FC = () => {
-
   const navigate = useNavigate();
 
-
   const [formData, setFormData] = React.useState({
- 
     password: "",
     email: "",
-  
   });
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
 
-  const login = useAuthStore((state) => state.login);  
-  const setLoadingState = useAuthStore((state) => state.setLoading);  
+  const login = useAuthStore((state) => state.login);
+  const setLoadingState = useAuthStore((state) => state.setLoading);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -32,7 +28,7 @@ export const Login: React.FC = () => {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-  
+
     setLoading(true);
     setLoadingState(true);
 
@@ -44,19 +40,28 @@ export const Login: React.FC = () => {
 
       console.log("Usuario logeado:", response);
 
-      navigate("/dashboard/entrenador");  
-      if(response.token) {
-        login(response.token,response.user); 
-        localStorage.setItem("token", response.token); 
+      if (response.token) {
+        login(response.token, response.user);
+        localStorage.setItem("token", response.token);
       }
-
+      if (response.user.role == "ENTRENADOR") {
+        navigate("/dashboard/entrenador");
+      } else {
+        navigate("/dashboard/cliente");
+      }
     } catch (error: any) {
       console.error("Error al iniciar sesión");
-  
+
       if (error.response) {
-        console.error("Detalles del error desde el backend:", error.response.data);
-  
-        setError(error.response?.data?.error || "Hubo un problema al registrar el usuario");
+        console.error(
+          "Detalles del error desde el backend:",
+          error.response.data
+        );
+
+        setError(
+          error.response?.data?.error ||
+            "Hubo un problema al registrar el usuario"
+        );
       } else if (error.request) {
         // Si no se recibe respuesta del servidor
         console.error("No se recibió respuesta del servidor:", error.request);
@@ -66,7 +71,6 @@ export const Login: React.FC = () => {
         console.error("Error al hacer la solicitud:", error.message);
         setError("Hubo un error inesperado");
       }
-  
     } finally {
       setLoading(false);
     }
@@ -74,8 +78,7 @@ export const Login: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <h2 style={{color:"white", fontSize: "30px"}}>Registro</h2>
-
+      <h2 style={{ color: "white", fontSize: "30px" }}>Registro</h2>
       <Card
         shadow
         bordered
@@ -115,9 +118,8 @@ export const Login: React.FC = () => {
           </Button>
         </Form>
       </Card>
-
-      {error && <div className="error-message">{error}</div>} {/* Mostramos el error si ocurre */}
-
+      {error && <div className="error-message">{error}</div>}{" "}
+      {/* Mostramos el error si ocurre */}
       <BackButton />
     </div>
   );

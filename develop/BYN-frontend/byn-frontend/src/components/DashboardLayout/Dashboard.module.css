@@ -1,0 +1,12 @@
+
+  .dashboardLayout {
+    display: flex;
+    min-height: 100vh;
+  }
+  
+  .dashboardMainContent {
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto;
+  }
+  

@@ -45,3 +45,14 @@ export const loginUser = async (credentials: {
         throw new Error(error.response?.data?.error || 'Error al iniciar sesión');
     }
 }
+
+
+export const getClientsByEntrenador = async (entrenadorId?: number) => {
+  try {
+    console.log('ID del entrenador:', entrenadorId); // Log para verificar el ID del entrenador
+    const response = await api.get(`/usuarios/entrenador/${entrenadorId}/clientes`);
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error.response?.data?.error || 'Error al obtener los clientes del entrenador');
+  }
+};
