@@ -46,3 +46,25 @@ export const createUser = async (req: Request, res: Response): Promise<void> => 
     res.status(500).json({ error: 'Error al crear el usuario' });
   }
 };
+
+export const getClientesByEntrenador = async (req: Request, res: Response): Promise<void> => {
+  const { entrenadorId } = req.params;
+
+  try {
+    const usuarioRepository = dataSource.getRepository(Usuario);
+
+    const clientes = await usuarioRepository.find({
+      where: {
+        role: 'CLIENTE',
+        entrenador: { id: Number(entrenadorId) },
+      },
+      relations: ['entrenador'],
+    });
+
+    const safeClientes = plainToInstance(ReadUsuarioDTO, clientes);
+    res.json(safeClientes);
+  } catch (err) {
+    console.error('Error al obtener clientes por entrenador:', err);
+    res.status(500).json({ error: 'Error al obtener clientes' });
+  }
+};

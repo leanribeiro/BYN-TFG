@@ -1,6 +1,5 @@
-import { Exclude, Expose } from 'class-transformer';
+import { Expose, Type } from 'class-transformer';
 
-@Exclude()
 export class ReadUsuarioDTO {
   @Expose()
   id!: number;
@@ -12,5 +11,9 @@ export class ReadUsuarioDTO {
   email!: string;
 
   @Expose()
-  role!: string;
+  role!: 'CLIENTE' | 'ENTRENADOR';
+
+  @Expose()
+  @Type(() => ReadUsuarioDTO)
+  entrenador?: ReadUsuarioDTO;
 }
