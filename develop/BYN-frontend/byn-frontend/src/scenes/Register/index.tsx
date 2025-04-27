@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Card } from "../../components/Card/Card";
-import styles from "./styles.module.css";
+import styles from "./Register.module.css";
 import InputText from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
 import Form from "../../components/Form";

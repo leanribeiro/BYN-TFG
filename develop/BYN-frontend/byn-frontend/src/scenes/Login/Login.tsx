@@ -1,6 +1,6 @@
 import React from "react";
 import { Card } from "../../components/Card/Card";
-import styles from "./styles.module.css";
+import styles from "./Login.module.css";
 import InputText from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
 import Form from "../../components/Form";
@@ -78,7 +78,7 @@ export const Login: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <h2 style={{ color: "white", fontSize: "30px" }}>Registro</h2>
+      <h2 style={{ color: "white", fontSize: "30px" }}>Iniciar Sesion</h2>
       <Card
         shadow
         bordered
