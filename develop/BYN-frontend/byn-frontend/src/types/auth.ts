@@ -1,10 +1,5 @@
-export type User = {
-    id: number;
-    name?: string;
-    email: string;
-    role: string;
-  };
-  
+import { User } from "./UserProps";
+
   export type AuthState = {
     token: string | null;
     user: User | null;
