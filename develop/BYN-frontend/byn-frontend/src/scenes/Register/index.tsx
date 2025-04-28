@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Card } from "../../components/Card/Card";
 import styles from "./Register.module.css";
 import InputText from "../../components/Input/Input";
@@ -8,7 +8,15 @@ import { BackButton } from "../../components/BackButton";
 import { createUser } from "../../services/api";
 import Switch from "../../components/Switch/Switch";
 
-export const Registro: React.FC = () => {
+interface props {
+  customStyles?: React.CSSProperties;
+  containerStyles?: React.CSSProperties;
+  optionChooseRole?: boolean;
+  selectedOptionRole: string;
+}
+
+export const Registro: React.FC<props> = ({customStyles,containerStyles,optionChooseRole,selectedOptionRole}) => {
+  const [selectedOption, setSelectedOption] = useState<string>("ENTRENADOR"); 
   const [formData, setFormData] = React.useState({
     username: "",
     password: "",
@@ -23,6 +31,7 @@ export const Registro: React.FC = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
   
@@ -33,7 +42,7 @@ export const Registro: React.FC = () => {
         nombre: formData.username,
         password: formData.password,
         email: formData.email,
-        role: ""
+        role: formData.role
       });
       console.log("Usuario creado exitosamente:", response);
       alert("Usuario creado exitosamente");
@@ -63,15 +72,19 @@ export const Registro: React.FC = () => {
   };
   
   
-  const [selectedOption, setSelectedOption] = useState<string>('ENTRENADOR');
 
+
+    useEffect(() => {
+      setSelectedOption(selectedOptionRole);
+      formData.role = selectedOptionRole;
+    }, [selectedOptionRole,formData]);
   const handleSwitchChange = (value: string) => {
     setSelectedOption(value);
     formData.role = value; 
   };
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} style={customStyles}>
       <h2 style={{color:"white", fontSize: "30px"}}>Registro</h2>
 
       <Card
@@ -84,6 +97,7 @@ export const Registro: React.FC = () => {
           flexDirection: "column",
           alignItems: "center",
           color: "white",
+          ...containerStyles,
         }}
       >
         <Form onSubmit={handleSubmit}>
@@ -129,10 +143,14 @@ export const Registro: React.FC = () => {
             labelText="Confirmar contraseña"
             canPaste={false}
           />
-          <Switch selectedOption={selectedOption} onChange={handleSwitchChange} />
-          <Button size="large" type="submit" disabled={loading}>
-            {loading ? "Registrando..." : "Registrarse"}
-          </Button>
+            <Switch
+            selectedOption={selectedOption}
+            onChange={handleSwitchChange}
+            disableChooseRole={!optionChooseRole}
+          />
+            <Button size="large" type="submit" disabled={loading}>
+              {loading ? "Registrando..." : "Registrarse"}
+            </Button>
         </Form>
       </Card>
 

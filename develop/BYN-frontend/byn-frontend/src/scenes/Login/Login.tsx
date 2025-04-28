@@ -44,11 +44,8 @@ export const Login: React.FC = () => {
         login(response.token, response.user);
         localStorage.setItem("token", response.token);
       }
-      if (response.user.role == "ENTRENADOR") {
-        navigate("/dashboard/entrenador");
-      } else {
-        navigate("/dashboard/cliente");
-      }
+      navigate("/dashboard");
+    
     } catch (error: any) {
       console.error("Error al iniciar sesión");
 

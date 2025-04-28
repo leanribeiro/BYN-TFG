@@ -2,7 +2,7 @@ import { RouteObject } from "react-router-dom";
 import { Home } from "../scenes/Home";
 import { Registro } from "../scenes/Register";
 import { Login } from "../scenes/Login/Login";
-import { Dashboard } from "../components/DashboardLayout/DashBoard";
+import { DashBoard } from "../scenes/DashboardLayout/DashBoard";
 import { dashboardChildRoutes } from "./DashBoardRoutes";
 
 export const routes: RouteObject[] = [
@@ -21,9 +21,8 @@ export const routes: RouteObject[] = [
   },
   {
     path: "/dashboard",
-    element: <Dashboard  />,
-    children: dashboardChildRoutes,
-
+    element: <DashBoard  />,
+    // children: dashboardChildRoutes,
   },
 
 ];

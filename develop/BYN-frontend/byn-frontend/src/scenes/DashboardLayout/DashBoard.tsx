@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
-import Sidebar from "../SideBar/SideBar";
+import Sidebar from "../../components/SideBar/SideBar";
 import useAuthStore from "../../store/authStore";
 import { RoutesLinksProps } from "../../types/RoutesLinks";
 import { Users, ClipboardList, BarChart, MessageCircle } from "lucide-react";
 import styles from "./Dashboard.module.css";
-import { DashBoardEntrenador } from "../../scenes/DashBoard/Entrenador/DashBoardEntrenador";
+import { DashBoardEntrenador } from "../../components/DashBoard/Entrenador/DashBoardEntrenador";
+import { DashBoardCliente } from "../../components/DashBoard/Clientes/DashBoardCliente";
 
-export const Dashboard = () => {
+export const DashBoard = () => {
   const { user, logout } = useAuthStore();
   const [role, setRole] = useState("ENTRENADOR");
 
@@ -47,7 +48,7 @@ export const Dashboard = () => {
           {role === "ENTRENADOR" ? (
             <DashBoardEntrenador user={user}/>
           ) : (
-            <div>Contenido para el cliente</div>
+            <DashBoardCliente user={user}/>
           )}
         </div>
       </main>

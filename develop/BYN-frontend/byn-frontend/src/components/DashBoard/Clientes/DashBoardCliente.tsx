@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import styles from "./DashBoardEntrenador.module.css";
+import styles from "./DashBoardCliente.module.css";
 import { DashBoardProps } from "../../../types";
 import { getClientsByEntrenador } from "../../../services/api";
-import { ClientCard } from "../../../components/CardClient/CardClient";
+import { ClientCard } from "../../CardClient/CardClient";
 
 
-export const DashBoardEntrenador = (props: DashBoardProps) => {
+export const DashBoardCliente = (props: DashBoardProps) => {
   const { user } = props;
   const [clientes, setClientes] = useState([]);
 

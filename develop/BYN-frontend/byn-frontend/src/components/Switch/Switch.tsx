@@ -4,11 +4,11 @@ import './Switch.css';
 interface SwitchProps {
   selectedOption: string;
   onChange: (value: string) => void;
+  disableChooseRole?: boolean;
 }
 
-const Switch: React.FC<SwitchProps> = ({ selectedOption, onChange }) => {
+const Switch: React.FC<SwitchProps> = ({ selectedOption, onChange, disableChooseRole }) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // Cambiar entre 'entrenador' y 'cliente' basado en el estado del switch
     const newValue = event.target.checked ? 'ENTRENADOR' : 'CLIENTE';
     onChange(newValue);
   };
@@ -22,6 +22,7 @@ const Switch: React.FC<SwitchProps> = ({ selectedOption, onChange }) => {
           type="checkbox"
           checked={selectedOption === 'ENTRENADOR'}
           onChange={handleChange}
+          disabled={disableChooseRole} 
         />
         <span className="slider"></span>
       </label>
