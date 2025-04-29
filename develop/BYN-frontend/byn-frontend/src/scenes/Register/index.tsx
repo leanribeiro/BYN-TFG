@@ -7,22 +7,35 @@ import Form from "../../components/Form";
 import { BackButton } from "../../components/BackButton";
 import { createUser } from "../../services/api";
 import Switch from "../../components/Switch/Switch";
+import { User } from "../../types";
 
 interface props {
   customStyles?: React.CSSProperties;
   containerStyles?: React.CSSProperties;
   optionChooseRole?: boolean;
   selectedOptionRole: string;
+  createClientFromTrainer?: boolean;
+  entrenadorId?: number;
+  onSuccess?: () => void;
 }
 
-export const Registro: React.FC<props> = ({customStyles,containerStyles,optionChooseRole,selectedOptionRole}) => {
-  const [selectedOption, setSelectedOption] = useState<string>("ENTRENADOR"); 
+export const Registro: React.FC<props> = ({
+  customStyles,
+  containerStyles,
+  optionChooseRole,
+  selectedOptionRole,
+  createClientFromTrainer,
+  entrenadorId,
+  onSuccess
+}) => {
+
+  const [selectedOption, setSelectedOption] = useState<string>("ENTRENADOR");
   const [formData, setFormData] = React.useState({
-    username: "",
+    nombre: "",
     password: "",
     email: "",
-    confirmPassword: "", 
-    role: ""
+    confirmPassword: "",
+    role: "",
   });
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
@@ -31,31 +44,44 @@ export const Registro: React.FC<props> = ({customStyles,containerStyles,optionCh
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-  
+
     setLoading(true);
-  
+
     try {
-      const response = await createUser({
-        nombre: formData.username,
+      const newUser: User = {
+        nombre: formData.nombre,
         password: formData.password,
         email: formData.email,
-        role: formData.role
-      });
-      console.log("Usuario creado exitosamente:", response);
-      alert("Usuario creado exitosamente");
-  
+        role: formData.role,
+        entrenadorId: createClientFromTrainer ? entrenadorId : undefined,
+      };
+      const response = await createUser(newUser);
+      console.log(formData.role + " creado exitosamente:", response);
+      alert(formData.role + " creado exitosamente:");
+
+      if (onSuccess) {
+       console.log("Llamando a onSuccess desde el registro");
+        onSuccess(); // ✅ Llamamos a onSuccess si todo salió bien
+      }
+
+      // handleChange(); // Llamamos a handleChange para cerrar el popup
     } catch (error: any) {
       console.error("Error al registrar el usuario");
-  
+
       if (error.response) {
         // Imprimimos la respuesta completa del error desde el backend
-        console.error("Detalles del error desde el backend:", error.response.data);
-  
+        console.error(
+          "Detalles del error desde el backend:",
+          error.response.data
+        );
+
         // Mostrar el mensaje de error que devuelve el backend
-        setError(error.response?.data?.error || "Hubo un problema al registrar el usuario");
+        setError(
+          error.response?.data?.error ||
+            "Hubo un problema al registrar el usuario"
+        );
       } else if (error.request) {
         // Si no se recibe respuesta del servidor
         console.error("No se recibió respuesta del servidor:", error.request);
@@ -65,28 +91,23 @@ export const Registro: React.FC<props> = ({customStyles,containerStyles,optionCh
         console.error("Error al hacer la solicitud:", error.message);
         setError("Hubo un error inesperado");
       }
-  
     } finally {
       setLoading(false);
     }
   };
-  
-  
 
-
-    useEffect(() => {
-      setSelectedOption(selectedOptionRole);
-      formData.role = selectedOptionRole;
-    }, [selectedOptionRole,formData]);
+  useEffect(() => {
+    setSelectedOption(selectedOptionRole);
+    formData.role = selectedOptionRole;
+  }, [selectedOptionRole, formData]);
   const handleSwitchChange = (value: string) => {
     setSelectedOption(value);
-    formData.role = value; 
+    formData.role = value;
   };
 
   return (
     <div className={styles.container} style={customStyles}>
-      <h2 style={{color:"white", fontSize: "30px"}}>Registro</h2>
-
+      <h2 style={{ color: "white", fontSize: "30px" }}>Registro</h2>
       <Card
         shadow
         bordered
@@ -103,9 +124,9 @@ export const Registro: React.FC<props> = ({customStyles,containerStyles,optionCh
         <Form onSubmit={handleSubmit}>
           <InputText
             type="text"
-            name="username"
+            name="nombre"
             placeholder="Nombre de usuario"
-            value={formData.username}
+            value={formData.nombre}
             onChange={handleChange}
             required
             hasLabel={true}
@@ -143,19 +164,18 @@ export const Registro: React.FC<props> = ({customStyles,containerStyles,optionCh
             labelText="Confirmar contraseña"
             canPaste={false}
           />
-            <Switch
+          <Switch
             selectedOption={selectedOption}
             onChange={handleSwitchChange}
             disableChooseRole={!optionChooseRole}
           />
-            <Button size="large" type="submit" disabled={loading}>
-              {loading ? "Registrando..." : "Registrarse"}
-            </Button>
+          <Button size="large" type="submit" disabled={loading}>
+            {loading ? "Registrando..." : "Registrarse"}
+          </Button>
         </Form>
       </Card>
-
-      {error && <div className="error-message">{error}</div>} {/* Mostramos el error si ocurre */}
-
+      {error && <div className="error-message">{error}</div>}{" "}
+      {/* Mostramos el error si ocurre */}
       <BackButton />
     </div>
   );

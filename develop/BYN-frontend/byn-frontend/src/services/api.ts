@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { jwtDecode } from "jwt-decode";
+import { User } from '../types';
 
 
 const api = axios.create({
@@ -16,12 +17,7 @@ interface DecodedToken {
     iat: number;
     exp: number;
   }
-export const createUser = async (userData: {
-  nombre: string;
-  email: string;
-  password: string;
-  role: string;
-}) => {
+export const createUser = async (userData: User) => {
   try {
     console.log('Datos del usuario:', userData); // Log para verificar los datos enviados
     const response = await api.post('/usuarios', userData);

@@ -1,16 +1,21 @@
-// CustomPopup.tsx
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 
 interface CustomPopupProps {
-  trigger: React.ReactNode; 
-  children?: React.ReactNode; 
+  // trigger: React.ReactNode; 
+  onClose: () => void;
+  children: React.ReactNode;
+  open: boolean;
 }
 
-export const CustomPopup: React.FC<CustomPopupProps> = ({ trigger, children }) => {
+export const CustomPopup: React.FC<CustomPopupProps> = ({
+  //  trigger, 
+   children ,onClose,open}) => {
   return (
     <Popup
-      trigger={trigger}
+      // trigger={trigger}
+      open={open}
+      onClose={onClose}
       modal
       position="center center"
       contentStyle={{
@@ -23,19 +28,16 @@ export const CustomPopup: React.FC<CustomPopupProps> = ({ trigger, children }) =
         justifyContent: 'center',
         alignItems: 'center',
         width: '50%',
-        maxHeight: '80vh', // 👈 máximo alto relativo a la ventana
-        overflowY: 'auto',  // 👈 activa scroll vertical
+        maxHeight: '80vh',
+        overflowY: 'auto',
         textAlign: 'center',
       }}
-        overlayStyle={{
-            background: 'rgba(0, 0, 0, 0.7)',
-            backdropFilter: 'blur(5px)'
-        }}
+      overlayStyle={{
+        background: 'rgba(0, 0, 0, 0.7)',
+        backdropFilter: 'blur(5px)'
+      }}
     >
-      <div>
-        {children}
-      </div>
+       {children}
     </Popup>
   );
 };
-

@@ -1,7 +1,9 @@
 export type User = {
-    id: number;
-    name?: string;
+    id?: number;
+    nombre?: string;
+    password?:string;
     email: string;
     role: string;
+    entrenadorId?:number;
   };
   

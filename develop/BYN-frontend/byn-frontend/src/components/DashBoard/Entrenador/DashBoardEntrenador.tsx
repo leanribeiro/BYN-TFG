@@ -10,10 +10,7 @@ import { Registro } from "../../../scenes/Register";
 export const DashBoardEntrenador = (props: DashBoardProps) => {
   const { user } = props;
   const [clientes, setClientes] = useState([]);
-
-  useEffect(() => {
-    getClientes();
-  }, [user?.id]);
+  const [popupOpen, setPopupOpen] = useState(false);
 
   const getClientes = async () => {
     try {
@@ -24,11 +21,17 @@ export const DashBoardEntrenador = (props: DashBoardProps) => {
     }
   };
 
+
+  useEffect(() => {
+    getClientes();
+  }, [user?.id]);
+
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     // lógica de búsqueda futura
   };
 
-  return (
+
+ return (
     <div className={styles.container}>
       <div className={styles.header}>
         <div>
@@ -37,14 +40,27 @@ export const DashBoardEntrenador = (props: DashBoardProps) => {
             Administra y haz seguimiento a tus clientes.
           </p>
         </div>
-        <CustomPopup
-          trigger={
-            <Button className={styles.addButton}>➕ Nuevo Cliente</Button>
-          }
+        <Button 
+          className={styles.addButton}
+          onClick={() => setPopupOpen(true)}
         >
+          ➕ Nuevo Cliente
+        </Button>
+        <CustomPopup
+
+          onClose={() => setPopupOpen(false)}
+          open={popupOpen}
+        >
+        
           <Registro
             optionChooseRole={false}
+            createClientFromTrainer={true}
+            entrenadorId={user?.id}
             selectedOptionRole =  "CLIENTE"
+            onSuccess={() => {
+              setPopupOpen(false); 
+              getClientes();      
+            }}
             customStyles={{
               width: "400px",
               height: "500px",
