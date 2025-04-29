@@ -1,0 +1,32 @@
+import api from './api';
+
+export const createRoutine = async (data: {
+  titulo: string;
+  descripcion: string;
+  entrenadorId: number;
+}) => {
+  try {
+    const response = await api.post('/rutinas', data);
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error.response?.data?.error || 'Error al crear rutina');
+  }
+};
+
+export const getRoutinesByEntrenador = async (entrenadorId?: number) => {
+  try {
+    const response = await api.get(`/rutinas/${entrenadorId}`);
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error.response?.data?.error || 'Error al obtener rutinas');
+  }
+};
+
+export const getAllRoutines = async () => {
+  try {
+    const response = await api.get('/rutinas');
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error.response?.data?.error || 'Error al obtener rutinas');
+  }
+};

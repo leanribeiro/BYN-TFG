@@ -1,12 +1,21 @@
+.dashboardLayout {
+  display: flex;
+  min-height: 100vh;
+}
 
-  .dashboardLayout {
-    display: flex;
-    min-height: 100vh;
-  }
-  
-  .dashboardMainContent {
-    flex: 1;
-    padding: 2rem;
-    overflow-y: auto;
-  }
-  
+.dashboardMainContent {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+.dashboardTitle {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.dashboardSubtitle {
+  color: #9ca3af; /* text-gray-400 */
+}

@@ -5,15 +5,15 @@ import InputText from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
 import Form from "../../components/Form";
 import { BackButton } from "../../components/BackButton";
-import { createUser } from "../../services/api";
 import Switch from "../../components/Switch/Switch";
 import { User } from "../../types";
+import { createUser } from "../../services/userService";
 
 interface props {
   customStyles?: React.CSSProperties;
   containerStyles?: React.CSSProperties;
   optionChooseRole?: boolean;
-  selectedOptionRole: string;
+  selectedOptionRole?: string;
   createClientFromTrainer?: boolean;
   entrenadorId?: number;
   onSuccess?: () => void;
@@ -29,13 +29,14 @@ export const Registro: React.FC<props> = ({
   onSuccess
 }) => {
 
-  const [selectedOption, setSelectedOption] = useState<string>("ENTRENADOR");
+  const [selectedOption, setSelectedOption] = useState<string>(selectedOptionRole || "ENTRENADOR");
+
   const [formData, setFormData] = React.useState({
     nombre: "",
     password: "",
     email: "",
     confirmPassword: "",
-    role: "",
+    role: selectedOptionRole || "ENTRENADOR",
   });
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
@@ -97,9 +98,13 @@ export const Registro: React.FC<props> = ({
   };
 
   useEffect(() => {
-    setSelectedOption(selectedOptionRole);
-    formData.role = selectedOptionRole;
-  }, [selectedOptionRole, formData]);
+    if (selectedOptionRole) {
+      setSelectedOption(selectedOptionRole);
+      setFormData((prev) => ({ ...prev, role: selectedOptionRole }));
+    }
+  }, [selectedOptionRole]);
+  
+
   const handleSwitchChange = (value: string) => {
     setSelectedOption(value);
     formData.role = value;

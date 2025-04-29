@@ -6,6 +6,7 @@ import { Users, ClipboardList, BarChart, MessageCircle } from "lucide-react";
 import styles from "./Dashboard.module.css";
 import { DashBoardEntrenador } from "../../components/DashBoard/Entrenador/DashBoardEntrenador";
 import { DashBoardCliente } from "../../components/DashBoard/Clientes/DashBoardCliente";
+import { Outlet } from "react-router-dom";
 
 export const DashBoard = () => {
   const { user, logout } = useAuthStore();
@@ -26,8 +27,8 @@ export const DashBoard = () => {
   ];
 
   const entrenadorMenu: RoutesLinksProps[] = [
-    { name: "Clientes", path: "/entrenador/clientes", icon: Users },
-    { name: "Rutinas", path: "/entrenador/rutinas", icon: ClipboardList },
+    { name: "Clientes", path: "/dashboard/entrenador/clientes", icon: Users },
+    { name: "Rutinas", path: "/dashboard/entrenador/rutinas", icon: ClipboardList },
     { name: "Mensajes", path: "/entrenador/mensajes", icon: MessageCircle },
   ];
 
@@ -39,17 +40,18 @@ export const DashBoard = () => {
       <Sidebar user={user} logout={logout} menuItems={menuItems} />
       <main className={styles.dashboardMainContent}>
         <div className={styles.dashboardHeader}>
-          <h1 className={styles.dashboardTitle}>Bienvenido, {user?.name}</h1>
+          <h1 className={styles.dashboardTitle}>Bienvenido, {user?.nombre}</h1>
           <p className={styles.dashboardSubtitle}>
             Aquí puedes gestionar tu información y actividades.
           </p>
         </div>
         <div className={styles.dashboardContent}>
-          {role === "ENTRENADOR" ? (
+        <Outlet context={{ user }} />
+          {/* {role === "ENTRENADOR" ? (
             <DashBoardEntrenador user={user}/>
           ) : (
             <DashBoardCliente user={user}/>
-          )}
+          )} */}
         </div>
       </main>
     </div>

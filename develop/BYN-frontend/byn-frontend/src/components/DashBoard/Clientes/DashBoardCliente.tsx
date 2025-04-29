@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./DashBoardCliente.module.css";
 import { DashBoardProps } from "../../../types";
 import { getClientsByEntrenador } from "../../../services/api";
-import { ClientCard } from "../../CardClient/CardClient";
+import { ClientCard } from "../../CardClient/ClientCard";
 
 
 export const DashBoardCliente = (props: DashBoardProps) => {

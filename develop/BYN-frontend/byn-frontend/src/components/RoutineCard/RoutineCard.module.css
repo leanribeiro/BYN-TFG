@@ -1,0 +1,81 @@
+.card {
+  background-color: white;
+  border-radius: 1rem;
+  padding: 1.25rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  width: 90%; /* Asegura que ocupe el 100% del espacio disponible */
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 9999px;
+  object-fit: cover;
+  background-color: #e5e7eb;
+}
+
+.info {
+  flex: 1;
+}
+
+.name {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.email {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.button {
+  align-self: flex-start;
+  background-color: #2563eb;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.button:hover {
+  background-color: #1d4ed8;
+}
+
+/* Responsivo para pantallas chicas */
+@media (max-width: 480px) {
+  .card {
+    width: 100%; /* Las cards ocupan el 100% del ancho disponible */
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .avatar {
+    width: 48px;
+    height: 48px;
+  }
+
+  .button {
+    width: 100%;
+    text-align: center;
+  }
+}

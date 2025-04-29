@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import styles from "./CardClient.module.css";
+import styles from "./ClientCard.module.css";
 import { ClientCardProps } from "./types";
 
 

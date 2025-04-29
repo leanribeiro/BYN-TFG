@@ -5,9 +5,9 @@ import InputText from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
 import Form from "../../components/Form";
 import { BackButton } from "../../components/BackButton";
-import { loginUser } from "../../services/api";
 import useAuthStore from "../../store/authStore";
 import { useNavigate } from "react-router-dom";
+import { loginUser } from "../../services/authService";
 
 export const Login: React.FC = () => {
   const navigate = useNavigate();

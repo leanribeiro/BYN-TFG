@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./DashBoardEntrenadorClientes.module.css";
 import { User } from "../../../../types";
 import { getClientsByEntrenador } from "../../../../services/api";
-import { ClientCard } from "../../../../components/CardClient/CardClient";
+import { ClientCard } from "../../../CardClient/ClientCard";
 
 interface Props {
   user?: User | null;
