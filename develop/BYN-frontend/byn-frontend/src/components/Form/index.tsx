@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './styles.module.css';
 
 interface FormProps {
-  onSubmit: (e: React.FormEvent) => void;
+  onSubmit?: (e: React.FormEvent) => void;
   children: React.ReactNode;
 }
 

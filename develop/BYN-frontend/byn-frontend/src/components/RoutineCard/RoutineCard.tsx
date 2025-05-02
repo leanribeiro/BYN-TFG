@@ -3,15 +3,14 @@ import { RoutineCardProps } from "./types";
 import Button from "../Button/Button";
 import { useState } from "react";
 import { CustomPopup } from "../Popuop/Popup";
-import CrearRutina from "../CreateRoutine/CreateRoutine";
+import { CrearRutina } from "../CreateRoutine/CreateRoutine";
 
 export const RoutineCard: React.FC<RoutineCardProps> = ({
   id,
   titulo,
   descripcion,
 }) => {
-  // const [popupOpen, setPopupOpen] = useState(false);
-
+  const [popupOpen, setPopupOpen] = useState(false);
   return (
     <div className={styles.card}>
       <div className={styles.header}>
@@ -20,11 +19,19 @@ export const RoutineCard: React.FC<RoutineCardProps> = ({
           <p className={styles.email}>{descripcion}</p>
         </div>
       </div>
-      <Button className={styles.button} onClick={() => setPopupOpen(true)}>
+      <Button onClick={() => setPopupOpen(true)}>
         Editar Rutina
       </Button>
-      {/* <CustomPopup onClose={() => setPopupOpen(false)} open={popupOpen}>
-      </CustomPopup> */}
+
+      <CustomPopup open={popupOpen} onClose={() => setPopupOpen(false)}>
+        {/* Aquí puedes mostrar el formulario de edición */}
+        <CrearRutina
+          onSuccess={() => {
+            setPopupOpen(false);
+            // Podés agregar lógica para refrescar la lista de rutinas si hace falta
+          }}
+        />
+      </CustomPopup>
     </div>
   );
 };

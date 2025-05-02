@@ -6,7 +6,7 @@ import { getRoutinesByEntrenador } from "../../../../services/routinesService";
 import { RoutineCard } from "../../../RoutineCard/RoutineCard";
 import Button from "../../../Button/Button";
 import { CustomPopup } from "../../../Popuop/Popup";
-import CrearRutina from "../../../CreateRoutine/CreateRoutine";
+import {CrearRutina } from "../../../CreateRoutine/CreateRoutine";
 
 export const RutinasDashboard = () => {
   const [rutinas, setSelectedRoutine] = useState([]);
@@ -27,6 +27,11 @@ export const RutinasDashboard = () => {
     getRutinas();
   }, [user?.id]);
 
+
+  const handleClosePopup = () => {
+    setPopupOpen(false);
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -36,11 +41,14 @@ export const RutinasDashboard = () => {
             Crea y administra rutinas para tus clientes.
           </p>
         </div>
-        <Button className={styles.button} onClick={() => setPopupOpen(true)}>
+        <Button onClick={() => setPopupOpen(true)}>
           Crear Rutina
         </Button>
         <CustomPopup onClose={() => setPopupOpen(false)} open={popupOpen}>
-          <CrearRutina />
+          <CrearRutina  onSuccess={() => {
+              setPopupOpen(false); 
+              getRutinas();      
+            }}/>
         </CustomPopup>
       </div>
 
@@ -60,27 +68,6 @@ export const RutinasDashboard = () => {
           />
         ))}
       </div>
-
-      {/* {selectedRoutine && modalType && (
-        <div className={styles.modalOverlay}>
-          <div className={styles.modalContent}>
-            <button className={styles.closeButton} onClick={closeModal}>
-              ✖️
-            </button>
-            <h2 className={styles.modalTitle}>
-              {modalType === "editar" ? "Editar Rutina" : "Duplicar Rutina"}
-            </h2>
-            <p className={styles.modalText}>
-              {modalType === "editar"
-                ? `Estás editando: ${selectedRoutine.title}`
-                : `Estás duplicando: ${selectedRoutine.title}`}
-            </p>
-            <button className={styles.modalClose} onClick={closeModal}>
-              Cerrar
-            </button>
-          </div>
-        </div>
-      )} */}
     </div>
   );
 };

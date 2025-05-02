@@ -12,6 +12,31 @@ export const createRoutine = async (data: {
     throw new Error(error.response?.data?.error || 'Error al crear rutina');
   }
 };
+export const updateRoutine = async (id: number, data: {
+  titulo: string;
+  descripcion: string;
+  tipo: string;
+  objetivo: string;
+  dias: {
+    nombre: string;
+    orden: number;
+    ejercicios: {
+      nombre: string;
+      series: number;
+      repeticiones: string;
+      peso?: string;
+      notas?: string;
+    }[];
+  }[];
+}) => {
+  try {
+    const response = await api.put(`/rutinas/${id}`, data);
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error.response?.data?.error || 'Error al actualizar rutina');
+  }
+};
+
 
 export const getRoutinesByEntrenador = async (entrenadorId?: number) => {
   try {
@@ -30,3 +55,5 @@ export const getAllRoutines = async () => {
     throw new Error(error.response?.data?.error || 'Error al obtener rutinas');
   }
 };
+
+

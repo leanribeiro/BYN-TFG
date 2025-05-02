@@ -13,11 +13,14 @@
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.button:hover {
+.button:not(.active):hover  {
   background-color: #3a3a3a; /* color un poco más claro */
   transform: scale(1.02);   /* efecto sutil de crecimiento */
 }
 
+.button.active:hover  {
+  transform: scale(1.02);   /* efecto sutil de crecimiento */
+}
 .withIcon {
   gap: 10px;
 }
@@ -48,4 +51,9 @@
   width: 180px;
   height: 52px;
   font-size: 16px;
+}
+
+
+.active {
+  background-color: #676567;
 }
