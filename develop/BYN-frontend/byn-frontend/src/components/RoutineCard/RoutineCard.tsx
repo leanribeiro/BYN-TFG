@@ -9,6 +9,9 @@ export const RoutineCard: React.FC<RoutineCardProps> = ({
   id,
   titulo,
   descripcion,
+  tipo,
+  objetivo,
+  dias,
 }) => {
   const [popupOpen, setPopupOpen] = useState(false);
   return (
@@ -19,16 +22,20 @@ export const RoutineCard: React.FC<RoutineCardProps> = ({
           <p className={styles.email}>{descripcion}</p>
         </div>
       </div>
-      <Button onClick={() => setPopupOpen(true)}>
-        Editar Rutina
-      </Button>
+      <Button onClick={() => setPopupOpen(true)}>Editar Rutina</Button>
 
       <CustomPopup open={popupOpen} onClose={() => setPopupOpen(false)}>
-        {/* Aquí puedes mostrar el formulario de edición */}
         <CrearRutina
+          initialData={{
+            id,
+            titulo,
+            descripcion,
+            tipo,
+            objetivo,
+            dias,
+          }}
           onSuccess={() => {
             setPopupOpen(false);
-            // Podés agregar lógica para refrescar la lista de rutinas si hace falta
           }}
         />
       </CustomPopup>

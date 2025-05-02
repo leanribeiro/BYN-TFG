@@ -1,12 +1,13 @@
 import React from "react";
 import styles from "./FormNuevoEjercicio.module.css";
+import { Ejercicio } from "../../../types/Routine";
 interface FormNuevoEjercicioProps {
   nuevoEjercicio: Ejercicio;
   setNuevoEjercicio: React.Dispatch<
     React.SetStateAction<{
       nombre: string;
       series: number;
-      repeticiones: number;
+      repeticiones: string;
       peso?: string;
       notas?: string;
     }>

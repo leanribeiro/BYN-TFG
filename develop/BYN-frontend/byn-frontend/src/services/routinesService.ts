@@ -1,10 +1,6 @@
 import api from './api';
 
-export const createRoutine = async (data: {
-  titulo: string;
-  descripcion: string;
-  entrenadorId: number;
-}) => {
+export const createRoutine = async (data:any) => {
   try {
     const response = await api.post('/rutinas', data);
     return response.data;

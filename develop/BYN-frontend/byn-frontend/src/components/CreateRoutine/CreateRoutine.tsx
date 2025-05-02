@@ -7,6 +7,7 @@ import { useOutletContext } from "react-router-dom";
 import { FormDatosBasicos } from "./Forms/FormDatosBasicos";
 import { FormNuevoEjercicio } from "./Forms/FormNuevoEjercicio";
 import InputText from "../Input/Input";
+import { DiaRutina, Ejercicio } from "../../types/Routine";
 
 interface CrearRutinaProps {
   onSuccess?: () => void;
@@ -27,7 +28,7 @@ export const CrearRutina: React.FC<CrearRutinaProps> = ({
   const { user } = useOutletContext<DashBoardProps>();
 
   const [formData, setFormData] = useState({
-    titulo: "",
+  titulo: "",
     tipo: "",
     objetivo: "",
     descripcion: "",
@@ -103,6 +104,7 @@ export const CrearRutina: React.FC<CrearRutinaProps> = ({
       if (initialData) {
         await updateRoutine(initialData.id, rutinaPayload);
       } else {
+        console.log("rutinaPayload", rutinaPayload);
         await createRoutine(rutinaPayload);
       }
       alert(`Rutina ${initialData ? "actualizada" : "creada"} exitosamente`);
@@ -197,6 +199,12 @@ export const CrearRutina: React.FC<CrearRutinaProps> = ({
           setMostrarModalEjercicio={setMostrarModalEjercicio}
         />
       )}
+      <div className={styles.footerActions}>
+        <button className={styles.cancelButton}>Cancelar</button>
+        <button onClick={handleSubmit} className={styles.saveButton}>
+          Guardar rutina
+        </button>
+      </div>
     </div>
   );
 };
