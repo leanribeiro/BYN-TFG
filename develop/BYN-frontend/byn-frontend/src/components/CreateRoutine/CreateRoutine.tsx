@@ -99,12 +99,10 @@ export const CrearRutina: React.FC<CrearRutinaProps> = ({
         ejercicios: dia.ejercicios,
       })),
     };
-
     try {
       if (initialData) {
         await updateRoutine(initialData.id, rutinaPayload);
       } else {
-        console.log("rutinaPayload", rutinaPayload);
         await createRoutine(rutinaPayload);
       }
       alert(`Rutina ${initialData ? "actualizada" : "creada"} exitosamente`);

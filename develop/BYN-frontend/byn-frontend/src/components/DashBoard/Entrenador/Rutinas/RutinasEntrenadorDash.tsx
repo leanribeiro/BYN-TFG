@@ -6,7 +6,7 @@ import { getRoutinesByEntrenador } from "../../../../services/routinesService";
 import { RoutineCard } from "../../../RoutineCard/RoutineCard";
 import Button from "../../../Button/Button";
 import { CustomPopup } from "../../../Popuop/Popup";
-import {CrearRutina } from "../../../CreateRoutine/CreateRoutine";
+import { CrearRutina } from "../../../CreateRoutine/CreateRoutine";
 
 export const RutinasDashboard = () => {
   const [rutinas, setSelectedRoutine] = useState([]);
@@ -16,7 +16,6 @@ export const RutinasDashboard = () => {
   const getRutinas = async () => {
     try {
       const data = await getRoutinesByEntrenador(user?.id);
-      console.log("Rutinas:", data);
       setSelectedRoutine(data);
     } catch (err) {
       console.error("Error trayendo las rutinas:", err);
@@ -27,10 +26,9 @@ export const RutinasDashboard = () => {
     getRutinas();
   }, [user?.id]);
 
-
   const handleClosePopup = () => {
     setPopupOpen(false);
-  }
+  };
 
   return (
     <div className={styles.container}>
@@ -41,14 +39,14 @@ export const RutinasDashboard = () => {
             Crea y administra rutinas para tus clientes.
           </p>
         </div>
-        <Button onClick={() => setPopupOpen(true)}>
-          Crear Rutina
-        </Button>
+        <Button onClick={() => setPopupOpen(true)}>Crear Rutina</Button>
         <CustomPopup onClose={() => setPopupOpen(false)} open={popupOpen}>
-          <CrearRutina  onSuccess={() => {
-              setPopupOpen(false); 
-              getRutinas();      
-            }}/>
+          <CrearRutina
+            onSuccess={() => {
+              setPopupOpen(false);
+              getRutinas();
+            }}
+          />
         </CustomPopup>
       </div>
 
@@ -61,10 +59,16 @@ export const RutinasDashboard = () => {
       <div className={styles.clientList}>
         {rutinas.map((routine: any) => (
           <RoutineCard
+            onSuccess={() => {
+              getRutinas();
+            }}
             key={routine.id}
             id={routine.id}
             titulo={routine.titulo}
             descripcion={routine.descripcion}
+            tipo={routine.tipo}
+            objetivo={routine.objetivo}
+            dias={routine.dias}
           />
         ))}
       </div>

@@ -33,10 +33,15 @@ export const updateRoutine = async (id: number, data: {
   }
 };
 
+export const getRoutineById = async (id: number) => {
+  const response = await api.get(`/rutinas/${id}`);
+  return response.data;
+};
+
 
 export const getRoutinesByEntrenador = async (entrenadorId?: number) => {
   try {
-    const response = await api.get(`/rutinas/${entrenadorId}`);
+    const response = await api.get(`/rutinas/entrenador/${entrenadorId}`);
     return response.data;
   } catch (error: any) {
     throw new Error(error.response?.data?.error || 'Error al obtener rutinas');

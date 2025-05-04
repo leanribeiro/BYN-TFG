@@ -63,7 +63,6 @@ export const Registro: React.FC<props> = ({
       alert(formData.role + " creado exitosamente:");
 
       if (onSuccess) {
-       console.log("Llamando a onSuccess desde el registro");
         onSuccess(); // ✅ Llamamos a onSuccess si todo salió bien
       }
 

@@ -7,4 +7,5 @@ export interface RoutineCardProps {
   tipo: string;
   objetivo: string;
   dias: DiaRutina[];
+  onSuccess?: () => void;
 }
