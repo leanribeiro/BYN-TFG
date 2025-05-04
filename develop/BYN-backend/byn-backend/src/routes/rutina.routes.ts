@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import {
+    asignarRutinaAUsuario,
   createRoutine,
   deleteRoutine,
   getAllRoutines,
@@ -16,6 +17,6 @@ rutinaRouter.get('/:id', getRoutineById);
 rutinaRouter.post('/', createRoutine);
 rutinaRouter.put('/:id', updateRoutine);
 rutinaRouter.delete('/:id', deleteRoutine);
-
+rutinaRouter.post('/asignar', asignarRutinaAUsuario);
 
 export default rutinaRouter;

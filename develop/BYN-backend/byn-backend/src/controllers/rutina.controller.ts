@@ -4,6 +4,7 @@ import { Rutina } from "../models/rutina.entity";
 import { Usuario } from "../models/usuario.entity";
 import { RutinaDia } from "../models/rutina-dia.entity";
 import { RutinaEjercicio } from "../models/rutina-ejercicio.entity";
+import { RutinaAsignada } from "../models/rutina-asignada.entity";
 
 export const getAllRoutines = async (
   req: Request,
@@ -206,5 +207,43 @@ export const deleteRoutine = async (req: Request, res: Response): Promise<void> 
   } catch (err) {
     console.error("Error al eliminar rutina:", err);
     res.status(500).json({ error: 'Error al eliminar rutina' });
+  }
+};
+
+
+export const asignarRutinaAUsuario = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { usuarioId, rutinaId, entrenadorId } = req.body;
+
+    if (!usuarioId || !rutinaId || !entrenadorId) {
+      res.status(400).json({ error: 'Faltan datos para asignar la rutina' });
+      return;
+    }
+
+    const rutinaAsignadaRepo = dataSource.getRepository(RutinaAsignada);
+    const usuarioRepo = dataSource.getRepository(Usuario);
+    const rutinaRepo = dataSource.getRepository(Rutina);
+
+    const usuario = await usuarioRepo.findOneBy({ id: usuarioId });
+    const rutina = await rutinaRepo.findOneBy({ id: rutinaId });
+    const entrenador = await usuarioRepo.findOneBy({ id: entrenadorId });
+
+    if (!usuario || !rutina || !entrenador) {
+      res.status(404).json({ error: 'Usuario, rutina o entrenador no encontrados' });
+      return;
+    }
+
+    const asignacion = rutinaAsignadaRepo.create({
+      usuario,
+      rutina,
+      entrenador,
+    });
+
+    const saved = await rutinaAsignadaRepo.save(asignacion);
+
+    res.status(201).json(saved);
+  } catch (err) {
+    console.error("Error al asignar rutina:", err);
+    res.status(500).json({ error: "Error al asignar rutina" });
   }
 };
