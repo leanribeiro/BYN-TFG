@@ -247,3 +247,29 @@ export const asignarRutinaAUsuario = async (req: Request, res: Response): Promis
     res.status(500).json({ error: "Error al asignar rutina" });
   }
 };
+
+
+export const getRutinasAsignadasPorUsuario = async (req: Request, res: Response):Promise<void> => {
+  try {
+    const usuarioId = parseInt(req.params.id);
+
+    if (isNaN(usuarioId)) {
+      res.status(400).json({ error: "ID de usuario inválido" });
+      return
+    }
+
+    const repo = dataSource.getRepository(RutinaAsignada);
+
+    const asignaciones = await repo.find({
+      where: { usuario: { id: usuarioId } },
+      relations: ["rutina"],
+    });
+
+    const rutinas = asignaciones.map((asignacion) => asignacion.rutina);
+
+    res.json(rutinas);
+  } catch (error) {
+    console.error("Error al obtener rutinas asignadas:", error);
+    res.status(500).json({ error: "Error al obtener rutinas asignadas" });
+  }
+};
