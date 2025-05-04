@@ -3,7 +3,7 @@ import styles from './TextAreaInput.module.css';
 
 interface TextAreaInputProps {
   name: string;
-  value: string;
+  value: string | number | undefined;
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   required?: boolean;
   hasLabel?: boolean;

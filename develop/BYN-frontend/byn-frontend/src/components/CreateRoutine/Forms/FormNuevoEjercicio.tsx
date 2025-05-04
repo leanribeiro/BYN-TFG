@@ -1,6 +1,9 @@
 import React from "react";
 import styles from "./FormNuevoEjercicio.module.css";
 import { Ejercicio } from "../../../types/Routine";
+import InputText from "../../Input/Input";
+import TextAreaInput from "../../TextareaInput/TextAreaInput";
+import Button from "../../Button/Button";
 interface FormNuevoEjercicioProps {
   nuevoEjercicio: Ejercicio;
   setNuevoEjercicio: React.Dispatch<
@@ -16,65 +19,84 @@ interface FormNuevoEjercicioProps {
   handleAddEjercicio: () => void;
 }
 
-export const FormNuevoEjercicio: React.FC<FormNuevoEjercicioProps> = (props) => {
-    const {nuevoEjercicio, setNuevoEjercicio, setMostrarModalEjercicio, handleAddEjercicio} = props;
+export const FormNuevoEjercicio: React.FC<FormNuevoEjercicioProps> = (
+  props
+) => {
+  const {
+    nuevoEjercicio,
+    setNuevoEjercicio,
+    setMostrarModalEjercicio,
+    handleAddEjercicio,
+  } = props;
   return (
     <div className={styles.modal}>
       <h4>Nuevo ejercicio</h4>
-      <input
+      <InputText
+        type="text"
+        name="nombre"
         placeholder="Nombre del ejercicio"
         value={nuevoEjercicio.nombre}
         onChange={(e) =>
           setNuevoEjercicio({ ...nuevoEjercicio, nombre: e.target.value })
         }
-        className={styles.input}
       />
-      <input
+      <InputText
+        value={nuevoEjercicio.series}
+        name="series"
         placeholder="Series"
         type="number"
-        value={nuevoEjercicio.series}
+        hasLabel={true}
+        labelText="Series"
         onChange={(e) =>
           setNuevoEjercicio({
             ...nuevoEjercicio,
             series: parseInt(e.target.value),
           })
         }
-        className={styles.input}
       />
-      <input
+      <InputText
+        type="text"
+        name="repeticiones"
+        hasLabel={true}
+        labelText="Repeticiones"
+        
         placeholder="Repeticiones"
         value={nuevoEjercicio.repeticiones}
         onChange={(e) =>
           setNuevoEjercicio({ ...nuevoEjercicio, repeticiones: e.target.value })
         }
-        className={styles.input}
       />
-      <input
+      <InputText
+        type="text"
+        name="peso"
+        hasLabel={true}
+        labelText="Peso"
         placeholder="Peso (opcional)"
         value={nuevoEjercicio.peso}
         onChange={(e) =>
           setNuevoEjercicio({ ...nuevoEjercicio, peso: e.target.value })
         }
-        className={styles.input}
       />
-      <textarea
+      <TextAreaInput
+        name="notas"
+        hasLabel={true} 
+        labelText="Notas"
         placeholder="Notas (opcional)"
         value={nuevoEjercicio.notas}
         onChange={(e) =>
           setNuevoEjercicio({ ...nuevoEjercicio, notas: e.target.value })
         }
-        className={styles.input}
       />
       <div className={styles.modalActions}>
-        <button onClick={handleAddEjercicio} className={styles.addButton}>
+        <Button onClick={handleAddEjercicio} >
           Añadir ejercicio
-        </button>
-        <button
+        </Button>
+        <Button
           onClick={() => setMostrarModalEjercicio(false)}
-          className={styles.cancelButton}
+         
         >
           Cancelar
-        </button>
+        </Button>
       </div>
     </div>
   );

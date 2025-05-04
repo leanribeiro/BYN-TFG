@@ -9,4 +9,5 @@
     display: flex;
     gap: 1rem;
     margin-top: 0.75rem;
+    justify-content: space-around;
   }
