@@ -4,7 +4,7 @@ import Button from "../Button/Button";
 import { useState } from "react";
 import { CustomPopup } from "../Popuop/Popup";
 import { CrearRutina } from "../CreateRoutine/CreateRoutine";
-import { getRoutineById } from "../../services/routinesService";
+import { deleteRoutine, getRoutineById } from "../../services/routinesService";
 import { Trash } from "lucide-react";
 
 export const RoutineCard: React.FC<RoutineCardProps> = ({
@@ -14,19 +14,24 @@ export const RoutineCard: React.FC<RoutineCardProps> = ({
   onSuccess,
 }) => {
   const [popupOpen, setPopupOpen] = useState(false);
-  const [routineData, setRoutineData] = useState<any>(null);
   const [initialRoutine, setInitialRoutine] = useState<any>(null);
 
-  const handleEdit = async () => {
-    try {
-      const fullData = await getRoutineById(id);
-      setRoutineData(fullData); // esto debe incluir dias, tipo, objetivo, etc.
-      setPopupOpen(true);
-    } catch (err) {
-      console.error("Error al cargar rutina:", err);
-      alert("Error al obtener la rutina");
-    }
-  };
+  const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
+
+  const handleDelete = async () =>{
+   
+      try {
+        await deleteRoutine(id);
+        alert("✅ Rutina eliminada");
+        setConfirmDeleteOpen(false);
+        onSuccess?.(); 
+      } catch (err) {
+        console.error("Error al eliminar:", err);
+        alert("Error al eliminar la rutina");
+      
+    
+  }
+}
   return (
     <div className={styles.card}>
       <div className={styles.header}>
@@ -45,13 +50,8 @@ export const RoutineCard: React.FC<RoutineCardProps> = ({
         >
           Editar Rutina
         </Button>
-        <Button
-          onClick={() => {
-            // Aquí puedes agregar la lógica para eliminar la rutina
-            console.log("Eliminar rutina con ID:", id);
-          }}
-        >
-          <Trash size={20} color="red" />
+        <Button onClick={() => setConfirmDeleteOpen(true)}>
+          <Trash size={20} color="white" />
         </Button>
       </div>
       <CustomPopup open={popupOpen} onClose={() => setPopupOpen(false)}>
@@ -64,6 +64,25 @@ export const RoutineCard: React.FC<RoutineCardProps> = ({
             }}
           />
         )}
+      </CustomPopup>
+      <CustomPopup
+        open={confirmDeleteOpen}
+        onClose={() => setConfirmDeleteOpen(false)}
+      >
+        <div className={styles.confirmDelete}>
+          <h3>¿Eliminar rutina?</h3>
+          <p>Esta acción no se puede deshacer.</p>
+          <div className={styles.confirmActionsDelete}>
+            <Button
+              onClick={handleDelete}
+            >
+              Confirmar
+            </Button>
+            <Button onClick={() => setConfirmDeleteOpen(false)}>
+              Cancelar
+            </Button>
+          </div>
+        </div>
       </CustomPopup>
     </div>
   );

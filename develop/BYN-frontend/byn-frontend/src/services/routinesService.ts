@@ -58,3 +58,12 @@ export const getAllRoutines = async () => {
 };
 
 
+
+export const deleteRoutine = async (id: number) => {
+  try {
+    const response = await api.delete(`/rutinas/${id}`);
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error.response?.data?.error || "Error al eliminar rutina");
+  }
+};
