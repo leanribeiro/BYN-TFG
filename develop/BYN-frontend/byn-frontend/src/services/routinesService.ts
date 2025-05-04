@@ -83,3 +83,12 @@ export const asignarRutina = async (clienteId: number, rutinaId: number, entrena
     );
   }
 };
+
+export const getRutinasAsignadasPorUsuario = async (usuarioId: number) => {
+  try {
+    const response = await api.get(`/usuarios/${usuarioId}/rutinas-asignadas`);
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error.response?.data?.error || 'Error al obtener rutinas asignadas');
+  }
+};
