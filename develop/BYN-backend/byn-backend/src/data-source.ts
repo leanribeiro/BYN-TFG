@@ -5,6 +5,8 @@ import { Rutina } from './models/rutina.entity';
 import { RutinaVersionada } from './models/rutina-versionada.entity';
 import { Ejercicio } from './models/ejercicio.entity';
 import { Progreso } from './models/progreso.entity';
+import { RutinaDia } from './models/rutina-dia.entity';
+import { RutinaEjercicio } from './models/rutina-ejercicio.entity';
 
 const dataSource = new DataSource({
   type: 'mysql',
@@ -15,7 +17,8 @@ const dataSource = new DataSource({
   database: config.database,
   synchronize: true,
   logging: false,
-  entities: [Usuario,Rutina,RutinaVersionada,Ejercicio,Progreso],
+  entities: [Usuario,Rutina,RutinaVersionada,Ejercicio,Progreso, Rutina,RutinaDia,RutinaEjercicio
+  ],
   subscribers: [],
 });
 

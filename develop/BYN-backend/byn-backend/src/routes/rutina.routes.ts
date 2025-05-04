@@ -1,9 +1,21 @@
 import { Router } from 'express';
-import { getAllRoutines } from '../controllers/rutina.controller';
+import {
+  createRoutine,
+  deleteRoutine,
+  getAllRoutines,
+  getRoutineById,
+  getRoutinesByEntrenador,
+  updateRoutine,
+} from '../controllers/rutina.controller';
 
 const rutinaRouter = Router();
 
-// Definir la ruta para obtener todas las rutinas
 rutinaRouter.get('/', getAllRoutines);
+rutinaRouter.get('/entrenador/:entrenadorId', getRoutinesByEntrenador);
+rutinaRouter.get('/:id', getRoutineById);
+rutinaRouter.post('/', createRoutine);
+rutinaRouter.put('/:id', updateRoutine);
+rutinaRouter.delete('/:id', deleteRoutine);
+
 
 export default rutinaRouter;

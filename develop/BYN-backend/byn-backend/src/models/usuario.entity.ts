@@ -11,7 +11,7 @@ import { Progreso } from './progreso.entity';
 import { Exclude } from 'class-transformer';
 
 @Entity('usuario')
-export class Usuario {
+export class  Usuario {
   @PrimaryGeneratedColumn()
   id!: number;
 

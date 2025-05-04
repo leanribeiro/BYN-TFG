@@ -1,4 +1,4 @@
-import { IsEmail, IsEnum, IsNotEmpty, MinLength } from 'class-validator';
+import { IsEmail, IsEnum, IsInt, IsNotEmpty, IsOptional, MinLength } from 'class-validator';
 import { Role } from '../models/usuario.entity'; 
 
 export class CreateUsuarioDTO {
@@ -13,6 +13,10 @@ export class CreateUsuarioDTO {
 
   @IsEnum(Role, { message: 'El rol debe ser ENTRENADOR o CLIENTE' })
   role!: Role;
+
+  @IsOptional()
+  @IsInt({ message: 'El ID del entrenador debe ser un número entero' })
+  entrenadorId?: number; 
 }
 
 

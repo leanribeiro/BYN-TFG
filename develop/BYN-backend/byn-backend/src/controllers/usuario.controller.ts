@@ -25,6 +25,7 @@ export const getAllUsers = async (req: Request, res: Response): Promise<void> =>
 export const createUser = async (req: Request, res: Response): Promise<void> => {
   const usuarioRepository = dataSource.getRepository(Usuario);
   const dto = plainToInstance(CreateUsuarioDTO, req.body);
+  console.log('Cuerpo de la solicitud:', dto);
   const errors = await validate(dto);
   if (errors.length > 0) {
     console.error('Errores de validación:', errors);
@@ -34,11 +35,27 @@ export const createUser = async (req: Request, res: Response): Promise<void> => 
 
   try {
     const hashedPassword = await bcrypt.hash(dto.password, 10);
+
+    let entrenador: Usuario | undefined = undefined;
+
+    if (dto.entrenadorId) {
+      const entrenadorEncontrado = await usuarioRepository.findOne({ where: { id: dto.entrenadorId } });
+      if (!entrenadorEncontrado) {
+        res.status(404).json({ error: 'Entrenador no encontrado' });
+        return;
+      }
+      entrenador = entrenadorEncontrado;
+    }
+
     const nuevoUsuario = usuarioRepository.create({
-      ...dto,
+      nombre: dto.nombre,
+      email: dto.email,
       password: hashedPassword,
+      role: dto.role,
+      entrenador: entrenador,
     });
 
+    console.log('Nuevo usuario:', nuevoUsuario);
     await usuarioRepository.save(nuevoUsuario);
     res.status(201).json({ mensaje: 'Usuario creado correctamente' });
   } catch (err) {
@@ -46,6 +63,7 @@ export const createUser = async (req: Request, res: Response): Promise<void> => 
     res.status(500).json({ error: 'Error al crear el usuario' });
   }
 };
+
 
 export const getClientesByEntrenador = async (req: Request, res: Response): Promise<void> => {
   const { entrenadorId } = req.params;
