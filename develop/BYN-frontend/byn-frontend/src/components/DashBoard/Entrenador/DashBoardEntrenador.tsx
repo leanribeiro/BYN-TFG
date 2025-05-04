@@ -43,11 +43,10 @@ export const DashBoardEntrenador = () => {
           </p>
         </div>
         <Button 
-          className={styles.addButton}
           onClick={() => setPopupOpen(true)}
         >
           ➕ Nuevo Cliente
-        </Button>
+        </Button>''
         <CustomPopup
 
           onClose={() => setPopupOpen(false)}
@@ -82,11 +81,7 @@ export const DashBoardEntrenador = () => {
         />
       </div>
 
-      <div className={styles.tabs}>
-        <button className={`${styles.tab} ${styles.active}`}>Activos</button>
-        <button className={styles.tab}>Inactivos</button>
-        <button className={styles.tab}>Todos</button>
-      </div>
+     
       <div className={styles.clientList}>
         {clientes.map((cliente: any) => (
           <ClientCard

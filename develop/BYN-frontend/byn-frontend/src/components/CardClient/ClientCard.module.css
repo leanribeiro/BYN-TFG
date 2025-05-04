@@ -79,3 +79,56 @@
     text-align: center;
   }
 }
+
+
+
+.actions{
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+
+.rutinaList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.rutinaItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #2f3542;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  border: 2px solid transparent;
+}
+
+.rutinaItem input[type="radio"] {
+  accent-color: #1e90ff;
+}
+
+.rutinaItem:hover {
+  background-color: #3c4457;
+}
+
+.selected {
+  border-color: #1e90ff;
+  background-color: #1e90ff33;
+}
+
+.asignarBtn {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.asignarButtonContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 20px;
+}

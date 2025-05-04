@@ -67,3 +67,19 @@ export const deleteRoutine = async (id: number) => {
     throw new Error(error.response?.data?.error || "Error al eliminar rutina");
   }
 };
+
+
+export const asignarRutina = async (clienteId: number, rutinaId: number, entrenadorId?: number) => {
+  try {
+    const response = await api.post(`/rutinas/asignar`, {
+      usuarioId: clienteId,
+      rutinaId,
+      entrenadorId,
+    });
+    return response.data;
+  } catch (error: any) {
+    throw new Error(
+      error.response?.data?.error || "Error al asignar rutina al cliente"
+    );
+  }
+};
