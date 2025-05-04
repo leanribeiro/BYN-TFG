@@ -30,8 +30,12 @@
 
 .info {
   flex: 1;
+  height: 180px;
 }
 
+.descripcion {
+
+}
 .name {
   font-size: 1.125rem;
   font-weight: 600;

@@ -32,7 +32,7 @@ export const RoutineCard: React.FC<RoutineCardProps> = ({
       <div className={styles.header}>
         <div className={styles.info}>
           <h3 className={styles.name}>{titulo}</h3>
-          <p className={styles.email}>{descripcion}</p>
+          <p className={styles.descripcion}>{descripcion}</p>
         </div>
       </div>
       <div className={styles.actions}>
