@@ -5,12 +5,13 @@ import { useState } from "react";
 import { CustomPopup } from "../Popuop/Popup";
 import { CrearRutina } from "../CreateRoutine/CreateRoutine";
 import { getRoutineById } from "../../services/routinesService";
+import { Trash } from "lucide-react";
 
 export const RoutineCard: React.FC<RoutineCardProps> = ({
   id,
   titulo,
   descripcion,
-  onSuccess
+  onSuccess,
 }) => {
   const [popupOpen, setPopupOpen] = useState(false);
   const [routineData, setRoutineData] = useState<any>(null);
@@ -34,16 +35,25 @@ export const RoutineCard: React.FC<RoutineCardProps> = ({
           <p className={styles.email}>{descripcion}</p>
         </div>
       </div>
-      <Button
-        onClick={async () => {
-          const fullRoutine = await getRoutineById(id); // llamás al backend
-          setInitialRoutine(fullRoutine);
-          setPopupOpen(true);
-        }}
-      >
-        Editar Rutina
-      </Button>
-
+      <div className={styles.actions}>
+        <Button
+          onClick={async () => {
+            const fullRoutine = await getRoutineById(id); // llamás al backend
+            setInitialRoutine(fullRoutine);
+            setPopupOpen(true);
+          }}
+        >
+          Editar Rutina
+        </Button>
+        <Button
+          onClick={() => {
+            // Aquí puedes agregar la lógica para eliminar la rutina
+            console.log("Eliminar rutina con ID:", id);
+          }}
+        >
+          <Trash size={20} color="red" />
+        </Button>
+      </div>
       <CustomPopup open={popupOpen} onClose={() => setPopupOpen(false)}>
         {initialRoutine && (
           <CrearRutina
@@ -54,7 +64,7 @@ export const RoutineCard: React.FC<RoutineCardProps> = ({
             }}
           />
         )}
-      </CustomPopup>  
+      </CustomPopup>
     </div>
   );
 };

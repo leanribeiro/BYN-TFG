@@ -4,8 +4,6 @@ import useAuthStore from "../../store/authStore";
 import { RoutesLinksProps } from "../../types/RoutesLinks";
 import { Users, ClipboardList, BarChart, MessageCircle } from "lucide-react";
 import styles from "./Dashboard.module.css";
-import { DashBoardEntrenador } from "../../components/DashBoard/Entrenador/DashBoardEntrenador";
-import { DashBoardCliente } from "../../components/DashBoard/Clientes/DashBoardCliente";
 import { Outlet } from "react-router-dom";
 
 export const DashBoard = () => {
