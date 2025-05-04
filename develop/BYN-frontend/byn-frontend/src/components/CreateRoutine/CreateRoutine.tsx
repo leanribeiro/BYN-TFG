@@ -8,6 +8,7 @@ import { FormDatosBasicos } from "./Forms/FormDatosBasicos";
 import { FormNuevoEjercicio } from "./Forms/FormNuevoEjercicio";
 import InputText from "../Input/Input";
 import { DiaRutina, Ejercicio } from "../../types/Routine";
+import { Dumbbell, Trash } from "lucide-react";
 
 interface CrearRutinaProps {
   onSuccess?: () => void;
@@ -28,7 +29,7 @@ export const CrearRutina: React.FC<CrearRutinaProps> = ({
   const { user } = useOutletContext<DashBoardProps>();
 
   const [formData, setFormData] = useState({
-  titulo: "",
+    titulo: "",
     tipo: "",
     objetivo: "",
     descripcion: "",
@@ -123,6 +124,12 @@ export const CrearRutina: React.FC<CrearRutinaProps> = ({
     { value: "salud", label: "Salud" },
   ];
 
+  const handleDeleteEjercicio = (index: number) => {
+    const copiaDias = [...dias];
+    copiaDias[diaActivo].ejercicios.splice(index, 1); // Elimina el ejercicio en el índice dado
+    setDias(copiaDias);
+  };
+
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>
@@ -176,13 +183,19 @@ export const CrearRutina: React.FC<CrearRutinaProps> = ({
         {dias[diaActivo].ejercicios.length === 0 ? (
           <p className={styles.emptyText}>No hay ejercicios añadidos.</p>
         ) : (
-          <ul>
-            {dias[diaActivo].ejercicios.map((ej, idx) => (
-              <li key={idx}>
-                {ej.nombre} - {ej.series}x{ej.repeticiones}
-              </li>
-            ))}
-          </ul>
+          <ul className={styles.ejercicioList}>
+          {dias[diaActivo].ejercicios.map((ej, idx) => (
+            <li key={idx} className={styles.ejercicioItem}>
+              <div className={styles.ejercicioContent}>
+                <Dumbbell size={18} />
+                <span>{ej.nombre} - {ej.series}x{ej.repeticiones}</span>
+              </div>
+              <Button onClick={() => handleDeleteEjercicio(idx)}>
+                <Trash size={16} color="white" />
+              </Button>
+            </li>
+          ))}
+        </ul>
         )}
         <Button onClick={() => setMostrarModalEjercicio(true)}>
           ➕ Añadir ejercicio

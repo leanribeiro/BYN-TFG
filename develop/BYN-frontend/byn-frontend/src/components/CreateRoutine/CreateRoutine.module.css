@@ -127,3 +127,29 @@
     cursor: pointer;
   }
   
+
+
+  .ejercicioList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .ejercicioItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2f3542;
+    padding: 8px 12px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+  
+  .ejercicioContent {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+    font-weight: 500;
+  }
+  
