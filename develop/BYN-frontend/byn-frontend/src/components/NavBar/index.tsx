@@ -29,7 +29,7 @@ export const NavBar:React.FC = () => {
             <Link to="/login">Iniciar sesión</Link>
           </Button>
           <Button size="medium">
-            <Link to="/register">Registrarse</Link>
+            <Link to="/registro">Registrarse</Link>
           </Button>
         </div>
       </div>
