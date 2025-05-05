@@ -3,7 +3,7 @@ import { jwtDecode } from 'jwt-decode';
 
 interface DecodedToken {
   id: number;
-  name: string;
+  nombre: string;
   email: string;
   role: string;
   iat: number;
@@ -23,7 +23,7 @@ export const loginUser = async (credentials: {
         id: user.id,
         email: user.email,
         role: user.role,
-        name: user.name,
+        nombre: user.nombre,
       },
     };
   } catch (error: any) {

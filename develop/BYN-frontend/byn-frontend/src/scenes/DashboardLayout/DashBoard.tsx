@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Sidebar from "../../components/SideBar/SideBar";
 import useAuthStore from "../../store/authStore";
 import { RoutesLinksProps } from "../../types/RoutesLinks";
@@ -6,23 +6,16 @@ import { Users, ClipboardList, BarChart, MessageCircle } from "lucide-react";
 import styles from "./Dashboard.module.css";
 import { Outlet, useNavigate } from "react-router-dom";
 
-export const DashBoard = () => {
+export const DashBoard:React.FC = () => {
   const { user, logout } = useAuthStore();
-  const [role, setRole] = useState("ENTRENADOR");
   const navigate = useNavigate();
 
   const handleLogout = () => {
     logout();
     navigate("/login");
   };
-  useEffect(() => {
-    if (user?.role === "ENTRENADOR") {
-      setRole("ENTRENADOR");
-    } else {
-      setRole("CLIENTE");
-    }
-  }, [user]);
-
+ 
+  console.log(user);
   const clientMenu: RoutesLinksProps[] = [
     { name: "Rutinas", path: "/cliente/rutinas", icon: ClipboardList },
     { name: "Progreso", path: "/cliente/progresos", icon: BarChart },
