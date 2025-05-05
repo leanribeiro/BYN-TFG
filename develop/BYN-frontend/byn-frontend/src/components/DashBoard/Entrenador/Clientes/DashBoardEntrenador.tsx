@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
-import styles from "./DashBoardEntrenador.module.css";
-import { DashBoardProps } from "../../../types";
-import { CustomPopup } from "../../Popuop/Popup";
-import Button from "../../Button/Button";
-import { Registro } from "../../../scenes/Register";
 import { useOutletContext } from "react-router-dom";
-import { getClientsByEntrenador } from "../../../services/userService";
-import { ClientCard } from "../../CardClient/ClientCard";
+import { DashBoardProps } from "../../../../types";
+import { getClientsByEntrenador } from "../../../../services/userService";
+
+import styles from "./DashBoardEntrenador.module.css";
+import { CustomPopup } from "../../../Popuop/Popup";
+import Button from "../../../Button/Button";
+import { Registro } from "../../../../scenes/Register";
+import { ClientCard } from "../../../CardClient/ClientCard";
 
 export const DashBoardEntrenador = () => {
   const [clientes, setClientes] = useState([]);

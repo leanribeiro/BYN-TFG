@@ -3,9 +3,9 @@ import { Home } from "../scenes/Home";
 import { Registro } from "../scenes/Register";
 import { Login } from "../scenes/Login/Login";
 import { DashBoard } from "../scenes/DashboardLayout/DashBoard";
-import { DashBoardEntrenador } from "../components/DashBoard/Entrenador/DashBoardEntrenador";
 import { RutinasDashboard } from "../components/DashBoard/Entrenador/Rutinas/RutinasEntrenadorDash";
 import RequireAuth from "../components/RequireAuth/RequireAuth";
+import { DashBoardEntrenador } from "../components/DashBoard/Entrenador/Clientes/DashBoardEntrenador";
 
 export const routes: RouteObject[] = [
   {
