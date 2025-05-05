@@ -4,12 +4,17 @@ import useAuthStore from "../../store/authStore";
 import { RoutesLinksProps } from "../../types/RoutesLinks";
 import { Users, ClipboardList, BarChart, MessageCircle } from "lucide-react";
 import styles from "./Dashboard.module.css";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
 export const DashBoard = () => {
   const { user, logout } = useAuthStore();
   const [role, setRole] = useState("ENTRENADOR");
+  const navigate = useNavigate();
 
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
   useEffect(() => {
     if (user?.role === "ENTRENADOR") {
       setRole("ENTRENADOR");
@@ -35,7 +40,7 @@ export const DashBoard = () => {
 
   return (
     <div className={styles.dashboardLayout}>
-      <Sidebar user={user} logout={logout} menuItems={menuItems} />
+      <Sidebar user={user} logout={handleLogout} menuItems={menuItems} />
       <main className={styles.dashboardMainContent}>
         <div className={styles.dashboardHeader}>
           <h1 className={styles.dashboardTitle}>Bienvenido, {user?.nombre}</h1>
@@ -45,11 +50,6 @@ export const DashBoard = () => {
         </div>
         <div className={styles.dashboardContent}>
         <Outlet context={{ user }} />
-          {/* {role === "ENTRENADOR" ? (
-            <DashBoardEntrenador user={user}/>
-          ) : (
-            <DashBoardCliente user={user}/>
-          )} */}
         </div>
       </main>
     </div>

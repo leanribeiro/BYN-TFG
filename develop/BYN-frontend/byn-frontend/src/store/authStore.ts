@@ -1,36 +1,39 @@
-// src/store/authStore.ts
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
-import { AuthState } from '../types'; // Asegúrate de que tu tipo AuthState esté bien definido en types.ts
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
+import { AuthState } from "../types";
 
 const useAuthStore = create<AuthState>()(
   persist(
     (set, get) => ({
       token: null,
       user: null,
-      roles: [], // Roles del usuario
-      isLoading: false, // Estado de carga
-      error: null, // Error de autenticación
+      roles: [],
+      isLoading: false,
+      error: null,
 
       // Función para login
       login: (token, user) => {
+        const rolesArray = Array.isArray(user.role) ? user.role : [user.role];
         set({
           token,
           user,
-          roles: user.roles || [], // Si el usuario tiene roles, los asignamos
+          roles: rolesArray,
           isLoading: false,
           error: null,
         });
       },
 
       // Función para logout
-      logout: () => set({
-        token: null,
-        user: null,
-        roles: [],
-        isLoading: false,
-        error: null,
-      }),
+      logout: () => {
+        console.log("Logout called"); // Agregar un console.log aquí
+        set({
+          token: null,  
+          user: null,
+          roles: [],
+          isLoading: false,
+          error: null,
+        });
+      },
 
       // Función para actualizar el estado de carga (por ejemplo, mientras se hace login)
       setLoading: (loading) => set({ isLoading: loading }),
@@ -49,7 +52,7 @@ const useAuthStore = create<AuthState>()(
       hasRole: (role) => get().roles.includes(role),
     }),
     {
-      name: 'auth-storage', // Nombre para persistir en localStorage
+      name: "auth-storage", // Nombre para persistir en localStorage
     }
   )
 );
