@@ -8,7 +8,7 @@ export const BackButton: React.FC = () => {
 
   return (
     <button
-      onClick={() => navigate(-1)}
+      onClick={() => navigate("/")}
       className="back-button"
     >
       <img
