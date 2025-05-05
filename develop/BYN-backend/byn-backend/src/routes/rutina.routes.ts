@@ -6,6 +6,7 @@ import {
   getAllRoutines,
   getRoutineById,
   getRoutinesByEntrenador,
+  getRutinasAsignadasPorUsuario,
   updateRoutine,
 } from '../controllers/rutina.controller';
 
@@ -18,5 +19,5 @@ rutinaRouter.post('/', createRoutine);
 rutinaRouter.put('/:id', updateRoutine);
 rutinaRouter.delete('/:id', deleteRoutine);
 rutinaRouter.post('/asignar', asignarRutinaAUsuario);
-
+rutinaRouter.get('/:id/rutinas-asignadas', getRutinasAsignadasPorUsuario);
 export default rutinaRouter;
