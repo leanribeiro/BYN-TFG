@@ -5,6 +5,7 @@ import Logo_WOBG from "@/assets/icons/Logo_WOBG.png";
 import styles from "./SideBar.module.css";
 import Icon from "../Icon/Icon";
 import { SideBarProps } from "./types";
+import Button from "../Button/Button";
 
 const Sidebar:React.FC<SideBarProps> = (props) => {
     const { user ,logout, menuItems} = props;
@@ -28,7 +29,7 @@ const Sidebar:React.FC<SideBarProps> = (props) => {
 
       <div className="px-4 mb-6">
         <div className={styles.userCard}>
-          <h3 className={styles.userName}>{user?.name}</h3>
+          <h3 className={styles.userName}>{user?.nombre}</h3>
           <p className={styles.userRole}>
             {user?.role === "ENTRENADOR" ? "ENTRENADOR" : "CLIENTE"}
           </p>
@@ -62,10 +63,10 @@ const Sidebar:React.FC<SideBarProps> = (props) => {
             </Link>
           </li>
           <li>
-            <button onClick={logout} className={styles.buttonLink}>
+            <Button onClick={logout}>
               <LogOut className="h-5 w-5" />
               <span>Cerrar sesión</span>
-            </button>
+            </Button>
           </li>
         </ul>
       </div>
