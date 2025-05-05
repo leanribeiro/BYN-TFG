@@ -25,7 +25,6 @@ export const getAllUsers = async (req: Request, res: Response): Promise<void> =>
 export const createUser = async (req: Request, res: Response): Promise<void> => {
   const usuarioRepository = dataSource.getRepository(Usuario);
   const dto = plainToInstance(CreateUsuarioDTO, req.body);
-  console.log('Cuerpo de la solicitud:', dto);
   const errors = await validate(dto);
   if (errors.length > 0) {
     console.error('Errores de validación:', errors);
