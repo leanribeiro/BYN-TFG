@@ -6,6 +6,7 @@ import { DashBoard } from "../scenes/DashboardLayout/DashBoard";
 import { RutinasDashboard } from "../components/DashBoard/Entrenador/Rutinas/RutinasEntrenadorDash";
 import RequireAuth from "../components/RequireAuth/RequireAuth";
 import { DashBoardEntrenador } from "../components/DashBoard/Entrenador/Clientes/DashBoardEntrenador";
+import { RutinasClientes } from "../components/DashBoard/Clientes/Rutinas/RutinasClientes";
 
 export const routes: RouteObject[] = [
   {
@@ -38,7 +39,7 @@ export const routes: RouteObject[] = [
           },
           {
             path: "cliente/rutinas",
-            element: <div>Rutinas Cliente</div>,
+            element: <RutinasClientes />
           },
           {
             path: "cliente/progresos",

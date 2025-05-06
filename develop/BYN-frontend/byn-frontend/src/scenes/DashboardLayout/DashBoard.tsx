@@ -17,9 +17,9 @@ export const DashBoard:React.FC = () => {
  
   console.log(user);
   const clientMenu: RoutesLinksProps[] = [
-    { name: "Rutinas", path: "/cliente/rutinas", icon: ClipboardList },
-    { name: "Progreso", path: "/cliente/progresos", icon: BarChart },
-    { name: "Mensajes", path: "/cliente/mensajes", icon: MessageCircle },
+    { name: "Rutinas", path: "/dashboard/cliente/rutinas", icon: ClipboardList },
+    { name: "Progreso", path: "/dashboard/cliente/progresos", icon: BarChart },
+    { name: "Mensajes", path: "/dashboard/cliente/mensajes", icon: MessageCircle },
   ];
 
   const entrenadorMenu: RoutesLinksProps[] = [
