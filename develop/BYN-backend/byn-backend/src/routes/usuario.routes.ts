@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { createUser, getAllUsers ,getClientesByEntrenador} from '../controllers/usuario.controller';
+import { createUser, getAllUsers ,getClientesByEntrenador, getRutinasAsignadasPorUsuario} from '../controllers/usuario.controller';
 
 const usuarioRouter = Router();
 
@@ -7,4 +7,7 @@ const usuarioRouter = Router();
 usuarioRouter.get('/', getAllUsers);
 usuarioRouter.post('/', createUser);
 usuarioRouter.get('/entrenador/:entrenadorId/clientes', getClientesByEntrenador);
+usuarioRouter.get('/:id/rutinas-asignadas', getRutinasAsignadasPorUsuario);
+
+
 export default usuarioRouter;

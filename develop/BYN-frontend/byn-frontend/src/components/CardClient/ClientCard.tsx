@@ -8,6 +8,7 @@ import {
   asignarRutina,
   getRoutinesByEntrenador,
   getRoutineById,
+  getRutinasAsignadasPorUsuario,
 } from "../../services/routinesService";
 import useAuthStore from "../../store/authStore";
 
@@ -34,9 +35,8 @@ export const ClientCard: React.FC<ClientCardProps> = ({
           .then(setRutinas)
           .catch(console.error);
       } else {
-        // Simulación: deberías usar un endpoint real
-        getRoutinesByEntrenador(user?.id)
-          .then((res) => setRutinasAsignadas(res))
+        getRutinasAsignadasPorUsuario(id)
+          .then(setRutinasAsignadas)
           .catch(console.error);
       }
     }
@@ -152,7 +152,7 @@ export const ClientCard: React.FC<ClientCardProps> = ({
               )}
             </>
           )}
-        </div>
+        </div> 
       </CustomPopup>
     </div>
   );

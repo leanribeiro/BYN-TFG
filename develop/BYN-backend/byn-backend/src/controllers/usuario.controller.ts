@@ -6,6 +6,7 @@ import { plainToInstance } from 'class-transformer';
 import { CreateUsuarioDTO } from '../dtos/create-ususario.dto';
 import { validate } from 'class-validator';
 import { ReadUsuarioDTO } from '../dtos/readUsuario.dto';
+import { RutinaAsignada } from '../models/rutina-asignada.entity';
 
 
 export const getAllUsers = async (req: Request, res: Response): Promise<void> => {
@@ -83,5 +84,28 @@ export const getClientesByEntrenador = async (req: Request, res: Response): Prom
   } catch (err) {
     console.error('Error al obtener clientes por entrenador:', err);
     res.status(500).json({ error: 'Error al obtener clientes' });
+  }
+};
+
+export const getRutinasAsignadasPorUsuario = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const usuarioId = parseInt(req.params.id);
+
+    if (isNaN(usuarioId)) {
+      res.status(400).json({ error: 'ID inválido' });
+      return;
+    }
+
+    const repo = dataSource.getRepository(RutinaAsignada);
+    const rutinas = await repo.find({
+      where: { usuario: { id: usuarioId } },
+      relations: ['rutina', 'rutina.dias', 'rutina.dias.ejercicios'], // ajustá según tus relaciones
+    });
+
+    // Retornar solo la rutina
+    res.json(rutinas.map(r => r.rutina));
+  } catch (err) {
+    console.error('Error al obtener rutinas asignadas:', err);
+    res.status(500).json({ error: 'Error al obtener rutinas asignadas' });
   }
 };

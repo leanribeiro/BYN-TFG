@@ -22,7 +22,7 @@ export const routes: RouteObject[] = [
   },
   {
     path: "/dashboard",
-    element: <RequireAuth />, // protegemos todas las rutas hijas
+    element: <RequireAuth />,
     children: [
       {
         path: "",
