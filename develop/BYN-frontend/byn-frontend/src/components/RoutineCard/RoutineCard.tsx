@@ -6,6 +6,7 @@ import { CustomPopup } from "../Popuop/Popup";
 import { CrearRutina } from "../CreateRoutine/CreateRoutine";
 import { deleteRoutine, getRoutineById } from "../../services/routinesService";
 import { Trash } from "lucide-react";
+import { toast } from "react-toastify";
 
 export const RoutineCard: React.FC<RoutineCardProps> = ({
   id,
@@ -22,11 +23,12 @@ export const RoutineCard: React.FC<RoutineCardProps> = ({
    
       try {
         await deleteRoutine(id);
-        alert("✅ Rutina eliminada");
+        toast.success(`Rutina borrada exitosamente`);
+        
         setConfirmDeleteOpen(false);
         onSuccess?.(); 
       } catch (err) {
-        console.error("Error al eliminar:", err);
+        console.log(err)
         alert("Error al eliminar la rutina");
       
     

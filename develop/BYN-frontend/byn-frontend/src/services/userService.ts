@@ -1,20 +1,20 @@
 import api from './api';
 import { User } from '../types';
 
+// Crea un usuario
 export const createUser = async (userData: User) => {
-  try {
-    const response = await api.post('/usuarios', userData);
-    return response.data;
-  } catch (error: any) {
-    throw new Error(error.response?.data?.error || 'Error al registrar el usuario');
-  }
+  const response = await api.post('/usuarios', userData);
+  return response.data;
 };
 
+// Obtiene los clientes de un entrenador
 export const getClientsByEntrenador = async (entrenadorId?: number) => {
-  try {
-    const response = await api.get(`/usuarios/entrenador/${entrenadorId}/clientes`);
-    return response.data;
-  } catch (error: any) {
-    throw new Error(error.response?.data?.error || 'Error al obtener los clientes');
-  }
+  const response = await api.get(`/usuarios/entrenador/${entrenadorId}/clientes`);
+  return response.data;
+};
+
+// Elimina un usuario
+export const deleteUser = async (userId: number) => {
+  const response = await api.delete(`/usuarios/${userId}`);
+  return response.data;
 };

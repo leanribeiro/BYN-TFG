@@ -3,6 +3,8 @@ import dotenv from 'dotenv';
 import dataSource from './data-source';
 import routes from './routes/index';
 import cors from 'cors';  
+import { errorHandler } from './middlewares/errorHandler'; 
+
 
 dotenv.config();
 
@@ -28,6 +30,8 @@ dataSource.initialize()
 
 // Usar las rutas
 app.use('/api', routes);
+
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {

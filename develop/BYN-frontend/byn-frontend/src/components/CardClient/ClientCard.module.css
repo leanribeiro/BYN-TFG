@@ -1,5 +1,6 @@
 .card {
-  background-color: white;
+  position: relative;
+  background-color: #4d4d4d7a;
   border-radius: 1rem;
   padding: 1.25rem;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
@@ -9,6 +10,25 @@
   gap: 1rem;
   transition: transform 0.2s ease;
 }
+
+.deleteButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #ff4d4f;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s;
+}
+
 
 .card:hover {
   transform: translateY(-4px);
@@ -35,7 +55,7 @@
 .name {
   font-size: 1.125rem;
   font-weight: 600;
-  color: #111827;
+  color: white;
 }
 
 .email {
@@ -173,4 +193,63 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+
+
+.confirmOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+/* Agregados ultima */
+.confirmBox {
+  width: 100%;
+  max-width: 400px;
+  padding: 1.5rem;
+  background-color: transparent;
+  color: white;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.confirmTitle {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.confirmMessage {
+  font-size: 1rem;
+  margin-bottom: 2rem;
+}
+
+.confirmButtonsRow {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.confirmButtonsRow button {
+  flex: 1;
+}
+
+.confirmDeleteButton {
+  background-color: #e53935;
+  color: white;
+  border: none;
+}
+
+.confirmDeleteButton:hover {
+  background-color: #c62828;
 }

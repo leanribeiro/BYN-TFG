@@ -16,7 +16,7 @@ export const BackButton: React.FC = () => {
         alt="Volver"
         className="back-button-icon"
       />
-      Volver atrás
+      Volver
     </button>
   );
 };

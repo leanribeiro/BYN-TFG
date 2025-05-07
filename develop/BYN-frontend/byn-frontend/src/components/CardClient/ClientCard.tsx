@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import styles from "./ClientCard.module.css";
 import { ClientCardProps } from "./types";
 import Button from "../Button/Button";
@@ -11,15 +10,21 @@ import {
   getRutinasAsignadasPorUsuario,
 } from "../../services/routinesService";
 import useAuthStore from "../../store/authStore";
+import { Trash } from "lucide-react";
+import { deleteUser } from "../../services/userService";
+import { toast } from "react-toastify";
+import { RutinaAsignada } from "../../types/Routine";
 
 export const ClientCard: React.FC<ClientCardProps> = ({
   id,
   nombre,
   email,
+  onDelete,
 }) => {
   const avatarUrl = `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(
     nombre
   )}&backgroundColor=b6e3f4`;
+
   const { user } = useAuthStore();
   const [rutinaSeleccionada, setRutinaSeleccionada] = useState<any>(null);
   const [popupOpen, setPopupOpen] = useState(false);
@@ -27,13 +32,12 @@ export const ClientCard: React.FC<ClientCardProps> = ({
   const [modo, setModo] = useState<"ver" | "asignar">("ver");
   const [rutinasAsignadas, setRutinasAsignadas] = useState<any[]>([]);
   const [rutinaExpandida, setRutinaExpandida] = useState<any | null>(null);
+  const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
 
   useEffect(() => {
     if (popupOpen) {
       if (modo === "asignar") {
-        getRoutinesByEntrenador(user?.id)
-          .then(setRutinas)
-          .catch(console.error);
+        getRoutinesByEntrenador(user?.id).then(setRutinas).catch(console.error);
       } else {
         getRutinasAsignadasPorUsuario(id)
           .then(setRutinasAsignadas)
@@ -42,6 +46,40 @@ export const ClientCard: React.FC<ClientCardProps> = ({
     }
   }, [popupOpen, modo]);
 
+  const handleDelete = async () => {
+    try {
+      await deleteUser(id);
+      toast.success(`Cliente borrado exitosamente`);
+      
+      onDelete?.(); // Notifica al padre que se elimine el cliente
+    } catch (error: any) {
+      console.error("Error al eliminar el usuario:", error);
+      alert(error.message);
+    } finally {
+      setConfirmDeleteOpen(false);
+    }
+  };
+
+  const handleAsignarRutina = async () => {
+    try {
+      await asignarRutina(id, rutinaSeleccionada!, user?.id);
+      toast.success(`Rutina asignada exitosamente`);
+
+      setPopupOpen(false);
+    } catch (err: any) {
+      alert(err.message);
+    }
+  }
+
+
+  const handleGetRoutineById = async (r:RutinaAsignada) => {
+    try {
+      const detalles = await getRoutineById(r.id);
+      setRutinaExpandida(detalles);
+    } catch (err:any) {
+      console.log("Error al cargar rutina",err)
+    }
+  }
   return (
     <div className={styles.card}>
       <div className={styles.header}>
@@ -50,7 +88,14 @@ export const ClientCard: React.FC<ClientCardProps> = ({
           <h3 className={styles.name}>{nombre}</h3>
           <p className={styles.email}>{email}</p>
         </div>
+        <Button
+          className={styles.deleteButton}
+          onClick={() => setConfirmDeleteOpen(true)}
+        >
+          <Trash />
+        </Button>
       </div>
+
       <div className={styles.actions}>
         <Button
           onClick={() => {
@@ -69,6 +114,7 @@ export const ClientCard: React.FC<ClientCardProps> = ({
           Asignar Rutina
         </Button>
       </div>
+
       <CustomPopup onClose={() => setPopupOpen(false)} open={popupOpen}>
         <div className={styles.popupContent}>
           {modo === "asignar" ? (
@@ -91,15 +137,7 @@ export const ClientCard: React.FC<ClientCardProps> = ({
               <div className={styles.asignarButtonContainer}>
                 <Button
                   disabled={!rutinaSeleccionada}
-                  onClick={async () => {
-                    try {
-                      await asignarRutina(id, rutinaSeleccionada!, user?.id);
-                      alert("Rutina asignada correctamente");
-                      setPopupOpen(false);
-                    } catch (err: any) {
-                      alert(err.message);
-                    }
-                  }}
+                  onClick={handleAsignarRutina}
                 >
                   Asignar rutina seleccionada
                 </Button>
@@ -107,10 +145,14 @@ export const ClientCard: React.FC<ClientCardProps> = ({
             </>
           ) : (
             <>
-              <h2 className={styles.popupTitle}>Rutinas asignadas a {nombre}</h2>
+              <h2 className={styles.popupTitle}>
+                Rutinas asignadas a {nombre}
+              </h2>
               {rutinaExpandida ? (
                 <>
-                  <Button onClick={() => setRutinaExpandida(null)}>← Volver</Button>
+                  <Button onClick={() => setRutinaExpandida(null)}>
+                    ← Volver
+                  </Button>
                   <h3>{rutinaExpandida.titulo}</h3>
                   <p>{rutinaExpandida.descripcion}</p>
                   {rutinaExpandida.dias.map((dia: any, i: number) => (
@@ -119,7 +161,8 @@ export const ClientCard: React.FC<ClientCardProps> = ({
                       <ul className={styles.ejercicioList}>
                         {dia.ejercicios.map((e: any, j: number) => (
                           <li key={j} className={styles.ejercicioItem}>
-                            {e.nombre} - {e.series}x{e.repeticiones} {e.peso && `(${e.peso}kg)`}
+                            {e.nombre} - {e.series}x{e.repeticiones}{" "}
+                            {e.peso && `(${e.peso}kg)`}
                           </li>
                         ))}
                       </ul>
@@ -135,14 +178,7 @@ export const ClientCard: React.FC<ClientCardProps> = ({
                       <li
                         key={r.id}
                         className={styles.ejercicioItem}
-                        onClick={async () => {
-                          try {
-                            const detalles = await getRoutineById(r.id);
-                            setRutinaExpandida(detalles);
-                          } catch (err) {
-                            alert("Error al cargar rutina");
-                          }
-                        }}
+                        onClick={()=>handleGetRoutineById(r)}
                       >
                         <span>{r.titulo}</span>
                       </li>
@@ -152,7 +188,30 @@ export const ClientCard: React.FC<ClientCardProps> = ({
               )}
             </>
           )}
-        </div> 
+        </div>
+      </CustomPopup>
+      
+      <CustomPopup
+        open={confirmDeleteOpen}
+        onClose={() => setConfirmDeleteOpen(false)}
+      >
+        <div className={styles.confirmBox}>
+          <h3 className={styles.confirmTitle}>Confirmar eliminación</h3>
+          <p className={styles.confirmMessage}>
+            ¿Estás seguro de que querés eliminar a <strong>{nombre}</strong>?
+          </p>
+          <div className={styles.confirmButtonsRow}>
+            <Button onClick={() => setConfirmDeleteOpen(false)}>
+              Cancelar
+            </Button>
+            <Button
+              onClick={handleDelete}
+              className={styles.confirmDeleteButton}
+            >
+              Sí, borrar
+            </Button>
+          </div>
+        </div>
       </CustomPopup>
     </div>
   );

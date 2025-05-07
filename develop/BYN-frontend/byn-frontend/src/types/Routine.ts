@@ -1,3 +1,5 @@
+import { Ejercicio } from "./EjercicioProps";
+
 export interface Routine {
     id: number;
     titulo: string;
@@ -13,14 +15,16 @@ export interface Routine {
   }
   
 
-  export interface Ejercicio {
-    nombre: string;
-    series: number;
-    repeticiones: string;
-    peso?: string;
-    notas?: string;
-  }
   export interface DiaRutina {
     nombre: string;
+    orden?: number;
     ejercicios: Ejercicio[];
   }
+
+  export interface RutinaAsignada {
+    id: number;
+    titulo: string;
+    descripcion: string;
+    dias: DiaRutina[];
+  }
+  

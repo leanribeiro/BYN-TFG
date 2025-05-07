@@ -35,14 +35,13 @@ export const Home: React.FC = () => {
             BE YOUR NEXT
           </h1>
           <div style={{ display: "flex", gap: "1rem" }}>
-            <Button size="medium">
+            <Button size="large">
               <Link to="/registro">Comenzar Ahora</Link>
             </Button>
-            <Button size="medium">
-              <Link to="/login">Iniciar Sesión</Link>
-            </Button>
-          </div>
+          </div> 
         </Card>
+
+     
       </div>
     </>
   );

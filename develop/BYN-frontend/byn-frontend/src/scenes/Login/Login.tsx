@@ -8,6 +8,7 @@ import { BackButton } from "../../components/BackButton";
 import useAuthStore from "../../store/authStore";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../services/authService";
+import { showApiErrorToast } from "../../utils/showApiErrorToast";
 
 export const Login: React.FC = () => {
   const navigate = useNavigate();
@@ -26,9 +27,54 @@ export const Login: React.FC = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // const handleSubmit = async (event: React.FormEvent) => {
+  //   event.preventDefault();
+
+  //   setLoading(true);
+  //   setLoadingState(true);
+
+  //   try {
+  //     const response = await loginUser({
+  //       email: formData.email,
+  //       password: formData.password,
+  //     });
+
+  //     console.log("Usuario logeado:", response);
+
+  //     if (response.token) {
+  //       login(response.token, response.user);
+  //       localStorage.setItem("token", response.token);
+  //     }
+  //     navigate("/dashboard");
+
+  //   } catch (error: any) {
+  //     console.error("Error al iniciar sesión");
+
+  //     if (error.response) {
+  //       console.error(
+  //         "Detalles del error desde el backend:",
+  //         error.response.data
+  //       );
+
+  //       setError(
+  //         error.response?.data?.error ||
+  //           "Hubo un problema al registrar el usuario"
+  //       );
+  //     } else if (error.request) {
+  //       // Si no se recibe respuesta del servidor
+  //       console.error("No se recibió respuesta del servidor:", error.request);
+  //       setError("No se recibió respuesta del servidor");
+  //     } else {
+  //       // Si hay otro tipo de error
+  //       console.error("Error al hacer la solicitud:", error.message);
+  //       setError("Hubo un error inesperado");
+  //     }
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-
     setLoading(true);
     setLoadingState(true);
 
@@ -43,31 +89,10 @@ export const Login: React.FC = () => {
       if (response.token) {
         login(response.token, response.user);
         localStorage.setItem("token", response.token);
+        navigate("/dashboard");
       }
-      navigate("/dashboard");
-    
-    } catch (error: any) {
-      console.error("Error al iniciar sesión");
-
-      if (error.response) {
-        console.error(
-          "Detalles del error desde el backend:",
-          error.response.data
-        );
-
-        setError(
-          error.response?.data?.error ||
-            "Hubo un problema al registrar el usuario"
-        );
-      } else if (error.request) {
-        // Si no se recibe respuesta del servidor
-        console.error("No se recibió respuesta del servidor:", error.request);
-        setError("No se recibió respuesta del servidor");
-      } else {
-        // Si hay otro tipo de error
-        console.error("Error al hacer la solicitud:", error.message);
-        setError("Hubo un error inesperado");
-      }
+    } catch (error) {
+      showApiErrorToast(error); // ✅ manejo centralizado del error
     } finally {
       setLoading(false);
     }

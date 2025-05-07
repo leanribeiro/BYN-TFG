@@ -1,0 +1,44 @@
+.rutinaBox {
+    background-color: #2e30358c;
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    color: #ffffff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  }
+  
+  .rutinaBox h3 {
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+    color: #ffffff;
+  }
+  
+  .rutinaBox p {
+    margin-bottom: 1rem;
+    color: #dfe4ea;
+  }
+  
+  .dia {
+    margin-top: 1rem;
+    background-color: #3a3c4191;
+    padding: 1rem;
+    border-radius: 8px;
+  }
+  
+  .dia h4 {
+    margin-bottom: 0.5rem;
+    color: #f1f2f6;
+  }
+
+  
+  .ejercicioList {
+    list-style: disc inside;
+    padding-left: 1rem;
+  }
+  
+  .ejercicioList li {
+    margin-bottom: 0.4rem;
+    font-weight: 500;
+    color: #ffffff;
+  }
+  

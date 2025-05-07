@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import { DashBoardProps } from "../../../../types";
@@ -6,12 +7,15 @@ import { getClientsByEntrenador } from "../../../../services/userService";
 import styles from "./DashBoardEntrenador.module.css";
 import { CustomPopup } from "../../../Popuop/Popup";
 import Button from "../../../Button/Button";
-import { Registro } from "../../../../scenes/Register";
+import { Registro } from "../../../../scenes/Registro/Registro";
 import { ClientCard } from "../../../CardClient/ClientCard";
+import { Plus, Search } from "lucide-react";
 
 export const DashBoardEntrenador = () => {
-  const [clientes, setClientes] = useState([]);
+  const [clientes, setClientes] = useState<any[]>([]);
+  const [filteredClientes, setFilteredClientes] = useState<any[]>([]);
   const [popupOpen, setPopupOpen] = useState(false);
+  const [search, setSearch] = useState("");
 
   const { user } = useOutletContext<DashBoardProps>();
 
@@ -19,22 +23,28 @@ export const DashBoardEntrenador = () => {
     try {
       const data = await getClientsByEntrenador(user?.id);
       setClientes(data);
+      setFilteredClientes(data);
     } catch (err) {
       console.error("Error trayendo los clientes:", err);
     }
   };
-
 
   useEffect(() => {
     getClientes();
   }, [user?.id]);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // lógica de búsqueda futura
+    const value = e.target.value.toLowerCase();
+    setSearch(value);
+    const filtered = clientes.filter(
+      (c) =>
+        c.nombre.toLowerCase().includes(value) ||
+        c.email.toLowerCase().includes(value)
+    );
+    setFilteredClientes(filtered);
   };
 
-
- return (
+  return (
     <div className={styles.container}>
       <div className={styles.header}>
         <div>
@@ -43,25 +53,17 @@ export const DashBoardEntrenador = () => {
             Administra y haz seguimiento a tus clientes.
           </p>
         </div>
-        <Button 
-          onClick={() => setPopupOpen(true)}
-        >
-          ➕ Nuevo Cliente
-        </Button>''
-        <CustomPopup
-
-          onClose={() => setPopupOpen(false)}
-          open={popupOpen}
-        >
-        
+        <Button onClick={() => setPopupOpen(true)}>
+        <Plus/>  Nuevo Cliente</Button>
+        <CustomPopup onClose={() => setPopupOpen(false)} open={popupOpen}>
           <Registro
             optionChooseRole={false}
             createClientFromTrainer={true}
             entrenadorId={user?.id}
-            selectedOptionRole =  "CLIENTE"
+            selectedOptionRole="CLIENTE"
             onSuccess={() => {
-              setPopupOpen(false); 
-              getClientes();      
+              setPopupOpen(false);
+              getClientes();
             }}
             customStyles={{
               width: "400px",
@@ -74,22 +76,25 @@ export const DashBoardEntrenador = () => {
       </div>
 
       <div className={styles.searchBox}>
-        <span className={styles.searchIcon}>🔍</span>
+        <span className={styles.searchIcon}><Search /></span>
         <input
           placeholder="Buscar cliente por nombre o email..."
           className={styles.searchInput}
+          value={search}
           onChange={handleSearch}
         />
       </div>
 
-     
       <div className={styles.clientList}>
-        {clientes.map((cliente: any) => (
+        {filteredClientes.map((cliente) => (
           <ClientCard
             key={cliente.id}
             id={cliente.id}
             nombre={cliente.nombre}
             email={cliente.email}
+            onDelete={() =>{
+              getClientes();
+            }}
           />
         ))}
       </div>

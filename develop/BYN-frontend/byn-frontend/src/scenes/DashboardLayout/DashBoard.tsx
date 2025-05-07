@@ -15,17 +15,16 @@ export const DashBoard:React.FC = () => {
     navigate("/login");
   };
  
-  console.log(user);
   const clientMenu: RoutesLinksProps[] = [
     { name: "Rutinas", path: "/dashboard/cliente/rutinas", icon: ClipboardList },
-    { name: "Progreso", path: "/dashboard/cliente/progresos", icon: BarChart },
-    { name: "Mensajes", path: "/dashboard/cliente/mensajes", icon: MessageCircle },
+    // { name: "Progreso", path: "/dashboard/cliente/progresos", icon: BarChart },
+    // { name: "Mensajes", path: "/dashboard/cliente/mensajes", icon: MessageCircle },
   ];
 
   const entrenadorMenu: RoutesLinksProps[] = [
     { name: "Clientes", path: "/dashboard/entrenador/clientes", icon: Users },
     { name: "Rutinas", path: "/dashboard/entrenador/rutinas", icon: ClipboardList },
-    { name: "Mensajes", path: "/entrenador/mensajes", icon: MessageCircle },
+    // { name: "Mensajes", path: "/entrenador/mensajes", icon: MessageCircle },
   ];
 
   const menuItems: RoutesLinksProps[] =

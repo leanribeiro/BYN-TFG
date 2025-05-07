@@ -14,19 +14,15 @@ export const loginUser = async (credentials: {
   email: string;
   password: string;
 }) => {
-  try {
-    const response = await api.post('/auth/login', credentials);
-    const user = jwtDecode<DecodedToken>(response.data.token);
-    return {
-      token: response.data.token,
-      user: {
-        id: user.id,
-        email: user.email,
-        role: user.role,
-        nombre: user.nombre,
-      },
-    };
-  } catch (error: any) {
-    throw new Error(error.response?.data?.error || 'Error al iniciar sesión');
-  }
+  const response = await api.post('/auth/login', credentials);
+  const user = jwtDecode<DecodedToken>(response.data.token);
+  return {
+    token: response.data.token,
+    user: {
+      id: user.id,
+      email: user.email,
+      role: user.role,
+      nombre: user.nombre,
+    },
+  };
 };

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Card } from "../../components/Card/Card";
-import styles from "./Register.module.css";
+import styles from "./Registro.module.css";
 import InputText from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
 import Form from "../../components/Form";
@@ -8,6 +8,10 @@ import { BackButton } from "../../components/BackButton";
 import Switch from "../../components/Switch/Switch";
 import { User } from "../../types";
 import { createUser } from "../../services/userService";
+import { toast } from "react-toastify";
+import { ApiErrorResponse } from "../../types/api";
+import { showApiErrorToast } from "../../utils/showApiErrorToast";
+
 
 interface props {
   customStyles?: React.CSSProperties;
@@ -22,8 +26,8 @@ interface props {
 export const Registro: React.FC<props> = ({
   customStyles,
   containerStyles,
-  optionChooseRole,
-  selectedOptionRole,
+  optionChooseRole=false,
+  selectedOptionRole = "ENTRENADOR",
   createClientFromTrainer,
   entrenadorId,
   onSuccess
@@ -45,11 +49,52 @@ export const Registro: React.FC<props> = ({
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // const handleSubmit = async (event: React.FormEvent) => {
+  //   event.preventDefault();
+  //   setLoading(true);
+  
+  //   try {
+  //     const newUser: User = {
+  //       nombre: formData.nombre,
+  //       password: formData.password,
+  //       email: formData.email,
+  //       role: formData.role,
+  //       entrenadorId: createClientFromTrainer ? entrenadorId : undefined,
+  //     };
+  
+  //     const response = await createUser(newUser);
+  
+  //     console.log(formData.role + " creado exitosamente:", response);
+  //     toast.success(`${formData.role} creado exitosamente`);
+  
+  //     if (onSuccess) {
+  //       onSuccess();
+  //     }
+  //   } catch (error: any) {
+  //     console.error("Error al registrar el usuario:", error);
+  
+  //     const res = error?.response?.data as ApiErrorResponse;
+  
+  //     if (res?.code === "VALIDATION_ERROR" && Array.isArray(res.messages)) {
+  //       res.messages.forEach((msg) => toast.error(msg));
+  //     } else if (res?.error) {
+  //       toast.error(res.error);
+  //     } else if (error.request) {
+  //       console.error("No se recibió respuesta del servidor:", error.request);
+  //       toast.error("No se recibió respuesta del servidor");
+  //     } else {
+  //       console.error("Error al hacer la solicitud:", error.message);
+  //       toast.error("Hubo un error inesperado");
+  //     }
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+  
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-
     setLoading(true);
-
+  
     try {
       const newUser: User = {
         nombre: formData.nombre,
@@ -58,44 +103,20 @@ export const Registro: React.FC<props> = ({
         role: formData.role,
         entrenadorId: createClientFromTrainer ? entrenadorId : undefined,
       };
+  
       const response = await createUser(newUser);
-      console.log(formData.role + " creado exitosamente:", response);
-      alert(formData.role + " creado exitosamente:");
-
-      if (onSuccess) {
-        onSuccess(); // ✅ Llamamos a onSuccess si todo salió bien
-      }
-
-      // handleChange(); // Llamamos a handleChange para cerrar el popup
-    } catch (error: any) {
-      console.error("Error al registrar el usuario");
-
-      if (error.response) {
-        // Imprimimos la respuesta completa del error desde el backend
-        console.error(
-          "Detalles del error desde el backend:",
-          error.response.data
-        );
-
-        // Mostrar el mensaje de error que devuelve el backend
-        setError(
-          error.response?.data?.error ||
-            "Hubo un problema al registrar el usuario"
-        );
-      } else if (error.request) {
-        // Si no se recibe respuesta del servidor
-        console.error("No se recibió respuesta del servidor:", error.request);
-        setError("No se recibió respuesta del servidor");
-      } else {
-        // Si hay otro tipo de error
-        console.error("Error al hacer la solicitud:", error.message);
-        setError("Hubo un error inesperado");
-      }
+  
+      console.log(`${formData.role} creado exitosamente:`, response);
+      toast.success(`${formData.role} creado exitosamente`);
+  
+      onSuccess?.(); // si existe, se ejecuta
+    } catch (error) {
+      showApiErrorToast(error); // ✅ manejo centralizado de errores
     } finally {
       setLoading(false);
     }
   };
-
+  
   useEffect(() => {
     if (selectedOptionRole) {
       setSelectedOption(selectedOptionRole);

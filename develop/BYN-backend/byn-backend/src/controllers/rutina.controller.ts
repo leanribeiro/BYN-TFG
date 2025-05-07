@@ -107,6 +107,7 @@ export const getRoutinesByEntrenador = async (
   }
 };
 
+
 export const getRoutineById = async (req: Request, res: Response) => {
   try {
     const rutinaId = parseInt(req.params.id);

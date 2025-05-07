@@ -1,6 +1,6 @@
 import { RouteObject } from "react-router-dom";
 import { Home } from "../scenes/Home";
-import { Registro } from "../scenes/Register";
+import { Registro } from "../scenes/Registro/Registro";
 import { Login } from "../scenes/Login/Login";
 import { DashBoard } from "../scenes/DashboardLayout/DashBoard";
 import { RutinasDashboard } from "../components/DashBoard/Entrenador/Rutinas/RutinasEntrenadorDash";

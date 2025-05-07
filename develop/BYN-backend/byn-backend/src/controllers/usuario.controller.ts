@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import  dataSource  from '../data-source';
 import { Usuario } from '../models/usuario.entity'; 
 import bcrypt from 'bcrypt';
@@ -7,6 +7,8 @@ import { CreateUsuarioDTO } from '../dtos/create-ususario.dto';
 import { validate } from 'class-validator';
 import { ReadUsuarioDTO } from '../dtos/readUsuario.dto';
 import { RutinaAsignada } from '../models/rutina-asignada.entity';
+import { formatValidationErrors } from '../utils/validationFormatter';
+import { ApiError } from '../errors/ApiError';
 
 
 export const getAllUsers = async (req: Request, res: Response): Promise<void> => {
@@ -23,14 +25,14 @@ export const getAllUsers = async (req: Request, res: Response): Promise<void> =>
 };
 
 
-export const createUser = async (req: Request, res: Response): Promise<void> => {
+export const createUser = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   const usuarioRepository = dataSource.getRepository(Usuario);
   const dto = plainToInstance(CreateUsuarioDTO, req.body);
+
   const errors = await validate(dto);
   if (errors.length > 0) {
-    console.error('Errores de validación:', errors);
-    res.status(400).json({ errores: errors.map(e => e.constraints) });
-    return;
+    const mensajes = formatValidationErrors(errors);
+    return next(new ApiError(400, "Datos inválidos", "VALIDATION_ERROR", mensajes));
   }
 
   try {
@@ -41,8 +43,7 @@ export const createUser = async (req: Request, res: Response): Promise<void> => 
     if (dto.entrenadorId) {
       const entrenadorEncontrado = await usuarioRepository.findOne({ where: { id: dto.entrenadorId } });
       if (!entrenadorEncontrado) {
-        res.status(404).json({ error: 'Entrenador no encontrado' });
-        return;
+        return next(new ApiError(404, "Entrenador no encontrado", "ENTRENADOR_NOT_FOUND"));
       }
       entrenador = entrenadorEncontrado;
     }
@@ -55,14 +56,14 @@ export const createUser = async (req: Request, res: Response): Promise<void> => 
       entrenador: entrenador,
     });
 
-    console.log('Nuevo usuario:', nuevoUsuario);
     await usuarioRepository.save(nuevoUsuario);
     res.status(201).json({ mensaje: 'Usuario creado correctamente' });
   } catch (err) {
     console.error('Error al crear usuario:', err);
-    res.status(500).json({ error: 'Error al crear el usuario' });
+    return next(new ApiError(500, "Error interno al crear el usuario", "INTERNAL_ERROR"));
   }
 };
+
 
 
 export const getClientesByEntrenador = async (req: Request, res: Response): Promise<void> => {
@@ -107,5 +108,34 @@ export const getRutinasAsignadasPorUsuario = async (req: Request, res: Response)
   } catch (err) {
     console.error('Error al obtener rutinas asignadas:', err);
     res.status(500).json({ error: 'Error al obtener rutinas asignadas' });
+  }
+};
+
+export const deleteUser = async (req: Request, res: Response): Promise<void> => {
+  const { id } = req.params;
+
+  try {
+    const usuarioRepository = dataSource.getRepository(Usuario);
+    const asignacionRepository = dataSource.getRepository(RutinaAsignada);
+
+    const usuario = await usuarioRepository.findOne({
+      where: { id: parseInt(id) },
+    });
+
+    if (!usuario) {
+      res.status(404).json({ error: "Usuario no encontrado" });
+      return;
+    }
+
+    // 1. Eliminar las asignaciones relacionadas
+    await asignacionRepository.delete({ usuario: { id: usuario.id } });
+
+    // 2. Eliminar el usuario
+    await usuarioRepository.remove(usuario);
+
+    res.status(200).json({ mensaje: "Usuario eliminado correctamente" });
+  } catch (err) {
+    console.error("Error al eliminar usuario:", err);
+    res.status(500).json({ error: "Error al eliminar usuario" });
   }
 };
