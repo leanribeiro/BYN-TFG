@@ -8,7 +8,6 @@ import { ClientCard } from "../../CardClient/ClientCard";
 export const DashBoardCliente = (props: DashBoardProps) => {
   const { user } = props;
   const [clientes, setClientes] = useState([]);
-
   useEffect(() => {
     getClientes();
   }, [user?.id]);

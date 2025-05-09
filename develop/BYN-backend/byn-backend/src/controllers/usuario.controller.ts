@@ -58,13 +58,21 @@ export const createUser = async (req: Request, res: Response, next: NextFunction
 
     await usuarioRepository.save(nuevoUsuario);
     res.status(201).json({ mensaje: 'Usuario creado correctamente' });
-  } catch (err) {
-    console.error('Error al crear usuario:', err);
-    return next(new ApiError(500, "Error interno al crear el usuario", "INTERNAL_ERROR"));
+  }catch (err) {
+    console.error("Error al crear usuario:", err);
+    res.status(500).json({ error: "Error al crear usuario" });
   }
+  //  catch (err: any) {
+  //   console.error('Error al crear usuario:', err);
+  
+  //   // Verifica si es un error de entrada duplicada (correo ya existe)
+  //   if (err.code === 'ER_DUP_ENTRY' && err.message.includes('usuario.IDX_2863682842e688ca198eb25c12')) {
+  //     return next(new ApiError(400, "El correo ya está registrado", "DUPLICATE_EMAIL"));
+  //   }
+  
+  //   return next(new ApiError(500, "Error interno al crear el usuario", "INTERNAL_ERROR"));
+  // }
 };
-
-
 
 export const getClientesByEntrenador = async (req: Request, res: Response): Promise<void> => {
   const { entrenadorId } = req.params;

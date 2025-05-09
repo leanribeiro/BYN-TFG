@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card } from "../../components/Card/Card";
+import { Content } from "../../components/Content/Content";
 import styles from "./Registro.module.css";
 import InputText from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
@@ -9,8 +9,8 @@ import Switch from "../../components/Switch/Switch";
 import { User } from "../../types";
 import { createUser } from "../../services/userService";
 import { toast } from "react-toastify";
-import { ApiErrorResponse } from "../../types/api";
 import { showApiErrorToast } from "../../utils/showApiErrorToast";
+import { useNavigate } from "react-router-dom";
 
 
 interface props {
@@ -32,6 +32,7 @@ export const Registro: React.FC<props> = ({
   entrenadorId,
   onSuccess
 }) => {
+  const navigate = useNavigate();
 
   const [selectedOption, setSelectedOption] = useState<string>(selectedOptionRole || "ENTRENADOR");
 
@@ -49,53 +50,37 @@ export const Registro: React.FC<props> = ({
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // const handleSubmit = async (event: React.FormEvent) => {
-  //   event.preventDefault();
-  //   setLoading(true);
+  const validateForm = () => {
+    const { nombre, email, password, confirmPassword } = formData;
   
-  //   try {
-  //     const newUser: User = {
-  //       nombre: formData.nombre,
-  //       password: formData.password,
-  //       email: formData.email,
-  //       role: formData.role,
-  //       entrenadorId: createClientFromTrainer ? entrenadorId : undefined,
-  //     };
+    if (!nombre || !email || !password || !confirmPassword) {
+      toast.error("Todos los campos son obligatorios");
+      return false;
+    }
   
-  //     const response = await createUser(newUser);
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      toast.error("Correo electrónico inválido");
+      return false;
+    }
   
-  //     console.log(formData.role + " creado exitosamente:", response);
-  //     toast.success(`${formData.role} creado exitosamente`);
+    if (password !== confirmPassword) {
+      toast.error("Las contraseñas no coinciden");
+      return false;
+    }
   
-  //     if (onSuccess) {
-  //       onSuccess();
-  //     }
-  //   } catch (error: any) {
-  //     console.error("Error al registrar el usuario:", error);
-  
-  //     const res = error?.response?.data as ApiErrorResponse;
-  
-  //     if (res?.code === "VALIDATION_ERROR" && Array.isArray(res.messages)) {
-  //       res.messages.forEach((msg) => toast.error(msg));
-  //     } else if (res?.error) {
-  //       toast.error(res.error);
-  //     } else if (error.request) {
-  //       console.error("No se recibió respuesta del servidor:", error.request);
-  //       toast.error("No se recibió respuesta del servidor");
-  //     } else {
-  //       console.error("Error al hacer la solicitud:", error.message);
-  //       toast.error("Hubo un error inesperado");
-  //     }
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-  
+    return true;
+  };
+
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+    if (!validateForm()) {
+      return;
+    }
     setLoading(true);
   
     try {
+      
       const newUser: User = {
         nombre: formData.nombre,
         password: formData.password,
@@ -108,10 +93,10 @@ export const Registro: React.FC<props> = ({
   
       console.log(`${formData.role} creado exitosamente:`, response);
       toast.success(`${formData.role} creado exitosamente`);
-  
-      onSuccess?.(); // si existe, se ejecuta
+      navigate("/login");
+      onSuccess?.(); 
     } catch (error) {
-      showApiErrorToast(error); // ✅ manejo centralizado de errores
+      showApiErrorToast(error);
     } finally {
       setLoading(false);
     }
@@ -133,7 +118,7 @@ export const Registro: React.FC<props> = ({
   return (
     <div className={styles.container} style={customStyles}>
       <h2 style={{ color: "white", fontSize: "30px" }}>Registro</h2>
-      <Card
+      <Content
         shadow
         bordered
         style={{
@@ -198,7 +183,7 @@ export const Registro: React.FC<props> = ({
             {loading ? "Registrando..." : "Registrarse"}
           </Button>
         </Form>
-      </Card>
+      </Content>
       {error && <div className="error-message">{error}</div>}{" "}
       {/* Mostramos el error si ocurre */}
       <BackButton />

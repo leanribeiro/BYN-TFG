@@ -1,9 +1,9 @@
 import React, { useState} from "react";
 import { Users, ClipboardList, MessageCircle } from "lucide-react";
 import styles from "./Dashboard.module.css";
-import useAuthStore from "../../../store/authStore";
-import { RoutesLinksProps } from "../../../types/RoutesLinks";
-import Sidebar from "../../../components/SideBar/SideBar";
+import useAuthStore from "../../../../store/authStore";
+import { RoutesLinksProps } from "../../../../types/RoutesLinks";
+import Sidebar from "../../../../components/SideBar/SideBar";
 
 export const Entrenador: React.FC = () => {
   const { user, logout } = useAuthStore();

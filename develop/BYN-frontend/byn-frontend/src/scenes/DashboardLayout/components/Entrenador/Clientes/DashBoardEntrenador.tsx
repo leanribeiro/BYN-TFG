@@ -1,14 +1,14 @@
 
 import { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
-import { DashBoardProps } from "../../../../types";
-import { getClientsByEntrenador } from "../../../../services/userService";
+import { DashBoardProps } from "../../../../../types";
+import { getClientsByEntrenador } from "../../../../../services/userService";
 
 import styles from "./DashBoardEntrenador.module.css";
-import { CustomPopup } from "../../../Popuop/Popup";
-import Button from "../../../Button/Button";
-import { Registro } from "../../../../scenes/Registro/Registro";
-import { ClientCard } from "../../../CardClient/ClientCard";
+import { CustomPopup } from "../../../../../components/Popuop/Popup";
+import Button from "../../../../../components/Button/Button";
+import { Registro } from "../../../../Registro/Registro";
+import { ClientCard } from "../../../../../components/CardClient/ClientCard";
 import { Plus, Search } from "lucide-react";
 
 export const DashBoardEntrenador = () => {

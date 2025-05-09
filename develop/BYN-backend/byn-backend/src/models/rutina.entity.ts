@@ -7,7 +7,6 @@ import {
   OneToMany,
 } from "typeorm";
 import { Usuario } from "./usuario.entity";
-import { RutinaVersionada } from "./rutina-versionada.entity";
 import { RutinaDia } from "./rutina-dia.entity";
 
 @Entity("rutina")
@@ -33,9 +32,6 @@ export class Rutina {
 
   @Column({ type: "varchar", length: 100, nullable: true })
   objetivo!: string;
-
-  @OneToMany(() => RutinaVersionada, (versionada) => versionada.rutina)
-  versiones!: RutinaVersionada[];
 
   @OneToMany(() => RutinaDia, (dia) => dia.rutina, { cascade: true })
   dias!: RutinaDia[];

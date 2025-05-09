@@ -3,17 +3,13 @@ import { ClientCardProps } from "./types";
 import Button from "../Button/Button";
 import { CustomPopup } from "../Popuop/Popup";
 import { useEffect, useState } from "react";
-import {
-  asignarRutina,
-  getRoutinesByEntrenador,
-  getRoutineById,
-  getRutinasAsignadasPorUsuario,
-} from "../../services/routinesService";
-import useAuthStore from "../../store/authStore";
+
 import { Trash } from "lucide-react";
 import { deleteUser } from "../../services/userService";
 import { toast } from "react-toastify";
 import { RutinaAsignada } from "../../types/Routine";
+import { getRoutineById, getRoutinesByEntrenador, getRutinasAsignadasPorUsuario } from "../../services/routinesService";
+import useAuthStore from "../../store/authStore";
 
 export const ClientCard: React.FC<ClientCardProps> = ({
   id,

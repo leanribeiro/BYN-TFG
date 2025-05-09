@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './styles.module.css';
+import styles from './Content.module.css';
 
 interface CardProps {
   children: React.ReactNode;
@@ -12,7 +12,7 @@ interface CardProps {
   style?: React.CSSProperties;
 }
 
-export const Card: React.FC<CardProps> = ({
+export const Content: React.FC<CardProps> = ({
   children,
   bordered = false,
   borderColor = 'rgba(255, 255, 255, 0.1)',

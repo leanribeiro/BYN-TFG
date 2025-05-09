@@ -1,14 +1,29 @@
 import { toast } from "react-toastify";
-import { ApiErrorResponse } from "../types/api";
 
-export const showApiErrorToast = (error: unknown) => {
-  const res = (error as any)?.response?.data as ApiErrorResponse;
+interface ApiErrorResponse {
+  code?: string;
+  error?: string;
+  messages?: string[];
+}
 
-  if (res?.code === "VALIDATION_ERROR" && Array.isArray(res.messages)) {
-    res.messages.forEach((msg) => toast.error(msg));
-  } else if (res?.error) {
-    toast.error(res.error);
-  } else {
-    toast.error("Ocurrió un error inesperado");
+export function showApiErrorToast(error: any) {
+  const err: ApiErrorResponse = error?.response?.data || {};
+
+  switch (err.code) {
+    case "DUPLICATE_EMAIL":
+      toast.error("El correo ya está registrado.");
+      break;
+    case "INVALID_CREDENTIALS":
+      toast.error("Correo o contraseña incorrectos.");
+      break;
+    case "VALIDATION_ERROR":
+      if (Array.isArray(err.messages)) {
+        err.messages.forEach((msg) => toast.error(msg));
+      } else {
+        toast.error("Hay errores en el formulario.");
+      }
+      break;
+    default:
+      toast.error(err.error || "Ocurrió un error inesperado.");
   }
-};
+}

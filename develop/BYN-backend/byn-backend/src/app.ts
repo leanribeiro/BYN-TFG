@@ -10,7 +10,6 @@ dotenv.config();
 
 const app = express();
 
-// Configuramos CORS para permitir solicitudes desde tu frontend
 app.use(cors({
   origin: 'http://localhost:5173', 
   methods: 'GET,POST,PUT,DELETE', 
@@ -19,7 +18,6 @@ app.use(cors({
 
 app.use(express.json());
 
-// Establecer la conexión con la base de datos
 dataSource.initialize()
   .then(() => {
     console.log('✅ Conexión exitosa a la base de datos MySQL');

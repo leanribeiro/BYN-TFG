@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import styles from "./styles.module.css";
 import Button from "../Button/Button";
-import Logo_WOBG from "@/assets/icons/Logo_WOBG.png";
+import Logo_WOBG from "../../assets/icons/Logo_WOBG.png";
 import Icon from "../Icon/Icon";
 import React from "react";
 

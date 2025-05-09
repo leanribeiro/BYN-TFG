@@ -7,8 +7,9 @@ import { useOutletContext } from "react-router-dom";
 import { FormDatosBasicos } from "./Forms/FormDatosBasicos";
 import { FormNuevoEjercicio } from "./Forms/FormNuevoEjercicio";
 import InputText from "../Input/Input";
-import { DiaRutina, Ejercicio } from "../../types/Routine";
+import { DiaRutina } from "@/types/Routine";
 import { Dumbbell, Trash } from "lucide-react";
+import { Ejercicio } from "@/types/EjercicioProps";
 
 interface CrearRutinaProps {
   onSuccess?: () => void;

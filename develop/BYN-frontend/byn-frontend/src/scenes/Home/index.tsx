@@ -1,6 +1,6 @@
 import React from "react";
 import { NavBar } from "../../components/NavBar";
-import { Card } from "../../components/Card/Card";
+import { Content } from "../../components/Content/Content";
 import styles from "./styles.module.css";
 import Button from "../../components/Button/Button";
 import { Link } from "react-router-dom";
@@ -9,7 +9,7 @@ export const Home: React.FC = () => {
     <>
       <NavBar />
       <div className={styles.containerPrincipal}>
-        <Card
+        <Content
           hoverable
           backgroundColor="transparent"
           style={{
@@ -39,7 +39,7 @@ export const Home: React.FC = () => {
               <Link to="/registro">Comenzar Ahora</Link>
             </Button>
           </div> 
-        </Card>
+        </Content>
 
      
       </div>

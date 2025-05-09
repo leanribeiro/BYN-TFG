@@ -1,5 +1,5 @@
 import React from "react";
-import { Card } from "../../components/Card/Card";
+import { Content } from "../../components/Content/Content";
 import styles from "./Login.module.css";
 import InputText from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
@@ -101,7 +101,7 @@ export const Login: React.FC = () => {
   return (
     <div className={styles.container}>
       <h2 style={{ color: "white", fontSize: "30px" }}>Iniciar Sesion</h2>
-      <Card
+      <Content
         shadow
         bordered
         style={{
@@ -139,7 +139,7 @@ export const Login: React.FC = () => {
             {loading ? "Iniciando Sesión..." : "Iniciar Sesión"}
           </Button>
         </Form>
-      </Card>
+      </Content>
       {error && <div className="error-message">{error}</div>}{" "}
       {/* Mostramos el error si ocurre */}
       <BackButton />

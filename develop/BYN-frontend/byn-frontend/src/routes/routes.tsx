@@ -3,10 +3,10 @@ import { Home } from "../scenes/Home";
 import { Registro } from "../scenes/Registro/Registro";
 import { Login } from "../scenes/Login/Login";
 import { DashBoard } from "../scenes/DashboardLayout/DashBoard";
-import { RutinasDashboard } from "../components/DashBoard/Entrenador/Rutinas/RutinasEntrenadorDash";
+import { RutinasDashboard } from "../scenes/DashboardLayout/components/Entrenador/Rutinas/RutinasEntrenadorDash";
 import RequireAuth from "../components/RequireAuth/RequireAuth";
-import { DashBoardEntrenador } from "../components/DashBoard/Entrenador/Clientes/DashBoardEntrenador";
-import { RutinasClientes } from "../components/DashBoard/Clientes/Rutinas/RutinasClientes";
+import { DashBoardEntrenador } from "../scenes/DashboardLayout/components/Entrenador/Clientes/DashBoardEntrenador";
+import { RutinasClientes } from "../scenes/DashboardLayout/components/Clientes/Rutinas/RutinasClientes";
 
 export const routes: RouteObject[] = [
   {

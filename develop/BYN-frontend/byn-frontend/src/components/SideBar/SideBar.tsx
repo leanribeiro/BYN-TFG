@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { Settings, LogOut } from "lucide-react";
-import Logo_WOBG from "@/assets/icons/Logo_WOBG.png";
+import Logo_WOBG from "../../assets/icons/Logo_WOBG.png";
 
 import styles from "./SideBar.module.css";
 import Icon from "../Icon/Icon";

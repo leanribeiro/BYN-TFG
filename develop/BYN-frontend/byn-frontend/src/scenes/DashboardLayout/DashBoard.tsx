@@ -2,7 +2,7 @@ import React from "react";
 import Sidebar from "../../components/SideBar/SideBar";
 import useAuthStore from "../../store/authStore";
 import { RoutesLinksProps } from "../../types/RoutesLinks";
-import { Users, ClipboardList, BarChart, MessageCircle } from "lucide-react";
+import { Users, ClipboardList} from "lucide-react";
 import styles from "./Dashboard.module.css";
 import { Outlet, useNavigate } from "react-router-dom";
 

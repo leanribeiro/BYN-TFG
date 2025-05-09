@@ -1,5 +1,5 @@
 import { RouteObject } from "react-router-dom";
-import { DashBoardEntrenador } from "../components/DashBoard/Entrenador/DashBoardEntrenador";
+import { DashBoardEntrenador } from "../scenes/DashboardLayout/components/Entrenador/DashBoardEntrenador";
 
 export const dashboardChildRoutes: RouteObject[] = [
   {

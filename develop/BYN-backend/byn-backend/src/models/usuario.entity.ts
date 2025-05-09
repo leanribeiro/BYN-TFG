@@ -7,7 +7,6 @@ import {
   JoinColumn,
 } from "typeorm";
 import { Rutina } from "./rutina.entity";
-import { Progreso } from "./progreso.entity";
 import { Exclude } from "class-transformer";
 import { RutinaAsignada } from "./rutina-asignada.entity";
 
@@ -35,9 +34,6 @@ export class Usuario {
 
   @OneToMany(() => Rutina, (rutina) => rutina.entrenador)
   rutina!: Rutina[];
-
-  @OneToMany(() => Progreso, (progreso) => progreso.usuario)
-  progreso!: Progreso[];
 
   @ManyToOne(() => Usuario, (usuario) => usuario.clientes, { nullable: true })
   @JoinColumn({ name: "entrenador_id" })

@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [react(), svgr()],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'src'), // Establece el alias @ para la carpeta src
+      // '@': path.resolve(__dirname, 'src'), // Establece el alias @ para la carpeta src
     },
   },
 })

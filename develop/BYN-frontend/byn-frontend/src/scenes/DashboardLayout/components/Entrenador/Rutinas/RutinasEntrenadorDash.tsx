@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import styles from "./RutinasEntrenadorDash.module.css";
 import { useOutletContext } from "react-router-dom";
-import { DashBoardProps } from "../../../../types";
-import { getRoutinesByEntrenador } from "../../../../services/routinesService";
-import { RoutineCard } from "../../../RoutineCard/RoutineCard";
-import Button from "../../../Button/Button";
-import { CustomPopup } from "../../../Popuop/Popup";
-import { CrearRutina } from "../../../CreateRoutine/CreateRoutine";
+import { DashBoardProps } from "../../../../../types";
+import { getRoutinesByEntrenador } from "../../../../../services/routinesService";
+import { RoutineCard } from "../../../../../components/RoutineCard/RoutineCard";
+import Button from "../../../../../components/Button/Button";
+import { CustomPopup } from "../../../../../components/Popuop/Popup";
+import { CrearRutina } from "../../../../../components/CreateRoutine/CreateRoutine";
 
 export const RutinasDashboard = () => {
   const [rutinas, setSelectedRoutine] = useState([]);

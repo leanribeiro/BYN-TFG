@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import styles from "./RutinasClientes.module.css";
-import useAuthStore from "../../../../store/authStore";
-import {
-  getRutinasAsignadasPorUsuario,
-} from "../../../../services/routinesService";
+
 import { RutinaExpandible } from "./subComponents/RutinaExpandible/RutinaExpandible";
-import { RutinaAsignada } from "../../../../types/Routine";
+import useAuthStore from "../../../../../store/authStore";
+import { getRutinasAsignadasPorUsuario } from "../../../../../services/routinesService";
+import { RutinaAsignada } from "../../../../../types/Routine";
 
 export const RutinasClientes = () => {
   const { user } = useAuthStore();

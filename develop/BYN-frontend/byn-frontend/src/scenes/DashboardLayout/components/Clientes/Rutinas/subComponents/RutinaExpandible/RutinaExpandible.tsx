@@ -1,10 +1,9 @@
 import React from "react";
 import styles from "./RutinaExpandible.module.css";
-import Button from "../../../../../Button/Button";
-import arrowLeftIcon from "../../../../../../assets/icons/ArrowLeftIcon.svg";
-import { getRoutineById } from "../../../../../../services/routinesService";
+import arrowLeftIcon from "../../../../../../../assets/icons/ArrowLeftIcon.svg";
 import { RutinasClienteProps } from "./type";
-
+import { getRoutineById } from "../../../../../../../services/routinesService";
+import Button from "../../../../../../../components/Button/Button";
 
 
 export const RutinaExpandible: React.FC<RutinasClienteProps> = (props) => {
