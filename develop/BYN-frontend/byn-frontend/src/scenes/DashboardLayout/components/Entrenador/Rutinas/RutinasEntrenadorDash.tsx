@@ -1,18 +1,16 @@
 import { useEffect, useState } from "react";
 import styles from "./RutinasEntrenadorDash.module.css";
-import { useOutletContext } from "react-router-dom";
-import { DashBoardProps } from "../../../../../types";
 import { getRoutinesByEntrenador } from "../../../../../services/routinesService";
 import { RoutineCard } from "../../../../../components/RoutineCard/RoutineCard";
 import Button from "../../../../../components/Button/Button";
 import { CustomPopup } from "../../../../../components/Popuop/Popup";
 import { CrearRutina } from "../../../../../components/CreateRoutine/CreateRoutine";
+import useAuthStore from "../../../../../store/authStore";
 
 export const RutinasDashboard = () => {
   const [rutinas, setSelectedRoutine] = useState([]);
   const [popupOpen, setPopupOpen] = useState(false);
-  const { user } = useOutletContext<DashBoardProps>();
-
+  const { user } = useAuthStore();
   const getRutinas = async () => {
     try {
       const data = await getRoutinesByEntrenador(user?.id);

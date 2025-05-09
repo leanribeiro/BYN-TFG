@@ -2,14 +2,13 @@ import React, { useState, useEffect } from "react";
 import styles from "./CreateRoutine.module.css";
 import Button from "../Button/Button";
 import { createRoutine, updateRoutine } from "../../services/routinesService";
-import { DashBoardProps } from "../../types";
-import { useOutletContext } from "react-router-dom";
 import { FormDatosBasicos } from "./Forms/FormDatosBasicos";
 import { FormNuevoEjercicio } from "./Forms/FormNuevoEjercicio";
 import InputText from "../Input/Input";
 import { Dumbbell, Trash } from "lucide-react";
 import { DiaRutina } from "../../types/Routine";
 import { Ejercicio } from "../../types/EjercicioProps";
+import useAuthStore from "../../store/authStore";
 
 interface CrearRutinaProps {
   onSuccess?: () => void;
@@ -27,7 +26,7 @@ export const CrearRutina: React.FC<CrearRutinaProps> = ({
   onSuccess,
   initialData,
 }) => {
-  const { user } = useOutletContext<DashBoardProps>();
+  const { user } = useAuthStore();
 
   const [formData, setFormData] = useState({
     titulo: "",

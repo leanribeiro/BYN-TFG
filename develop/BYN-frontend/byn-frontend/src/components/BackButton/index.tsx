@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import Arrow from '../../assets/icons/ArrowLeftIcon.svg';
 import './BackButton.css';
+import { ArrowLeft } from 'lucide-react';
 
 export const BackButton: React.FC = () => {
   const navigate = useNavigate();
@@ -11,11 +11,7 @@ export const BackButton: React.FC = () => {
       onClick={() => navigate("/")}
       className="back-button"
     >
-      <img
-        src={Arrow}
-        alt="Volver"
-        className="back-button-icon"
-      />
+      <ArrowLeft />
       Volver
     </button>
   );

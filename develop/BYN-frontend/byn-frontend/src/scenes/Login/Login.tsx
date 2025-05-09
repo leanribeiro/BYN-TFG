@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Content } from "../../components/Content/Content";
 import styles from "./Login.module.css";
 import InputText from "../../components/Input/Input";
@@ -26,6 +26,15 @@ export const Login: React.FC = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+  const isAuthenticated = useAuthStore(
+    (state) => !!state.token && !!state.user
+  );
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/dashboard");
+    }
+  }, [isAuthenticated]);
 
   // const handleSubmit = async (event: React.FormEvent) => {
   //   event.preventDefault();

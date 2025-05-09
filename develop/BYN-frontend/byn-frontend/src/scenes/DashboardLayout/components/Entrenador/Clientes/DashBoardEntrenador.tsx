@@ -1,7 +1,5 @@
 
 import { useEffect, useState } from "react";
-import { useOutletContext } from "react-router-dom";
-import { DashBoardProps } from "../../../../../types";
 import { getClientsByEntrenador } from "../../../../../services/userService";
 
 import styles from "./DashBoardEntrenador.module.css";
@@ -10,14 +8,15 @@ import Button from "../../../../../components/Button/Button";
 import { Registro } from "../../../../Registro/Registro";
 import { ClientCard } from "../../../../../components/CardClient/ClientCard";
 import { Plus, Search } from "lucide-react";
+import useAuthStore from "../../../../../store/authStore";
 
 export const DashBoardEntrenador = () => {
   const [clientes, setClientes] = useState<any[]>([]);
   const [filteredClientes, setFilteredClientes] = useState<any[]>([]);
   const [popupOpen, setPopupOpen] = useState(false);
   const [search, setSearch] = useState("");
+  const { user } = useAuthStore();
 
-  const { user } = useOutletContext<DashBoardProps>();
 
   const getClientes = async () => {
     try {

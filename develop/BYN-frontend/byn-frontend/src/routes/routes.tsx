@@ -7,6 +7,7 @@ import { RutinasDashboard } from "../scenes/DashboardLayout/components/Entrenado
 import RequireAuth from "../components/RequireAuth/RequireAuth";
 import { DashBoardEntrenador } from "../scenes/DashboardLayout/components/Entrenador/Clientes/DashBoardEntrenador";
 import { RutinasClientes } from "../scenes/DashboardLayout/components/Clientes/Rutinas/RutinasClientes";
+import RoleProtectedRoute from "../components/RoleProtectedRoute";
 
 export const routes: RouteObject[] = [
   {
@@ -30,28 +31,17 @@ export const routes: RouteObject[] = [
         element: <DashBoard />,
         children: [
           {
-            path: "entrenador/clientes",
-            element: <DashBoardEntrenador />,
+            element: <RoleProtectedRoute allowedRoles={["ENTRENADOR"]} />,
+            children: [
+              { path: "entrenador/clientes", element: <DashBoardEntrenador /> },
+              { path: "entrenador/rutinas", element: <RutinasDashboard /> },
+            ],
           },
           {
-            path: "entrenador/rutinas",
-            element: <RutinasDashboard />,
-          },
-          {
-            path: "cliente/rutinas",
-            element: <RutinasClientes />
-          },
-          {
-            path: "cliente/progresos",
-            element: <div>Progresos Cliente</div>,
-          },
-          {
-            path: "cliente/mensajes",
-            element: <div>Mensajes Cliente</div>,
-          },
-          {
-            path: "entrenador/mensajes",
-            element: <div>Mensajes Entrenador</div>,
+            element: <RoleProtectedRoute allowedRoles={["CLIENTE"]} />,
+            children: [
+              { path: "cliente/rutinas", element: <RutinasClientes /> },
+            ],
           },
         ],
       },
