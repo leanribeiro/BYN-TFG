@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import arrowLeftIcon from '../../assets/icons/ArrowLeftIcon.svg';
+import Arrow from '../../assets/icons/ArrowLeftIcon.svg';
 import './BackButton.css';
 
 export const BackButton: React.FC = () => {
@@ -12,7 +12,7 @@ export const BackButton: React.FC = () => {
       className="back-button"
     >
       <img
-        src={arrowLeftIcon}
+        src={Arrow}
         alt="Volver"
         className="back-button-icon"
       />

@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./RutinaExpandible.module.css";
-import arrowLeftIcon from "../../../../../../../assets/icons/ArrowLeftIcon.svg";
+import ArrowLeftIcon from "../../../../../../../assets/icons/ArrowLeftIcon.svg";
 import { RutinasClienteProps } from "./type";
 import { getRoutineById } from "../../../../../../../services/routinesService";
 import Button from "../../../../../../../components/Button/Button";
@@ -23,7 +23,7 @@ export const RutinaExpandible: React.FC<RutinasClienteProps> = (props) => {
         <div className={styles.rutinaBox}>
           <Button onClick={() => setRutinaExpandida(null)}>
             <img
-              src={arrowLeftIcon}
+              src={ArrowLeftIcon}
               alt="Volver"
               className="back-button-icon"
             />
