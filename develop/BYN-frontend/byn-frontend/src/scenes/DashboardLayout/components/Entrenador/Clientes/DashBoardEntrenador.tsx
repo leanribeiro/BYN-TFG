@@ -56,6 +56,7 @@ export const DashBoardEntrenador = () => {
         <Plus/>  Nuevo Cliente</Button>
         <CustomPopup onClose={() => setPopupOpen(false)} open={popupOpen}>
           <Registro
+          buttonVolverDisable={true}
             optionChooseRole={false}
             createClientFromTrainer={true}
             entrenadorId={user?.id}
@@ -69,7 +70,11 @@ export const DashBoardEntrenador = () => {
               height: "500px",
               paddingTop: "130px",
             }}
-            containerStyles={{ width: "90vh" }}
+            containerStyles={{
+              width: "100%",
+              maxWidth: "500px", 
+              padding: "1rem"
+            }}
           />
         </CustomPopup>
       </div>

@@ -21,6 +21,7 @@ interface props {
   createClientFromTrainer?: boolean;
   entrenadorId?: number;
   onSuccess?: () => void;
+  buttonVolverDisable?: boolean;
 }
 
 export const Registro: React.FC<props> = ({
@@ -30,7 +31,8 @@ export const Registro: React.FC<props> = ({
   selectedOptionRole = "ENTRENADOR",
   createClientFromTrainer,
   entrenadorId,
-  onSuccess
+  onSuccess,
+  buttonVolverDisable=false
 }) => {
   const navigate = useNavigate();
 
@@ -186,7 +188,7 @@ export const Registro: React.FC<props> = ({
       </Content>
       {error && <div className="error-message">{error}</div>}{" "}
       {/* Mostramos el error si ocurre */}
-      <BackButton />
+      { !buttonVolverDisable  ? <BackButton />: null}
     </div>
   );
 };
