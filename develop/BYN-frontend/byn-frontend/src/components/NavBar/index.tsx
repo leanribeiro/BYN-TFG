@@ -17,12 +17,12 @@ export const NavBar:React.FC = () => {
           </Link>
         </div>
 
-        <nav className={styles.nav}>
+        {/* <nav className={styles.nav}>
           <Link to="/">Inicio</Link>
           <Link to="/#features">Características</Link>
           <Link to="/#testimonials">Testimonios</Link>
           <Link to="/#pricing">Precios</Link>
-        </nav>
+        </nav> */}
 
         <div className={styles.buttonContainer}>
           <Button size="medium">
